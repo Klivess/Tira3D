@@ -1,4 +1,5 @@
 #include "Tira3D.h"
+#include "GL/glew.h"
 
 //Initialise Tira3D (GLFW) 
 bool Tira3D::Initialize() {
@@ -27,6 +28,7 @@ GLFWwindow* Tira3D::InstantiateWindow(int width, int height, const char* title, 
 }
 
 //Whenever the current window gets resized.
-void Tira3D::Window_FrameBuffer_Size_Callback(GLFWwindow* window, int width, int height) {
+//unsigned int used because negative values will throw error.
+void Tira3D::Window_FrameBuffer_Size_Callback(GLFWwindow* window, unsigned int width, unsigned int height) {
 	glViewport(0, 0, width, height);
 }
