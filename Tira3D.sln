@@ -5,6 +5,8 @@ VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tira3D", "Tira3D\Tira3D.vcxproj", "{C3189C65-B991-4A4A-B2AE-6A2F8246FCDE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tira3D Testing", "Tira3D Testing\Tira3D Testing.vcxproj", "{9BC9EC00-F1F2-426A-8941-A1EFEAEA2CF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{C3189C65-B991-4A4A-B2AE-6A2F8246FCDE}.Release|x64.Build.0 = Release|x64
 		{C3189C65-B991-4A4A-B2AE-6A2F8246FCDE}.Release|x86.ActiveCfg = Release|Win32
 		{C3189C65-B991-4A4A-B2AE-6A2F8246FCDE}.Release|x86.Build.0 = Release|Win32
+		{9BC9EC00-F1F2-426A-8941-A1EFEAEA2CF8}.Debug|x64.ActiveCfg = Debug|x64
+		{9BC9EC00-F1F2-426A-8941-A1EFEAEA2CF8}.Debug|x64.Build.0 = Debug|x64
+		{9BC9EC00-F1F2-426A-8941-A1EFEAEA2CF8}.Debug|x86.ActiveCfg = Debug|Win32
+		{9BC9EC00-F1F2-426A-8941-A1EFEAEA2CF8}.Debug|x86.Build.0 = Debug|Win32
+		{9BC9EC00-F1F2-426A-8941-A1EFEAEA2CF8}.Release|x64.ActiveCfg = Release|x64
+		{9BC9EC00-F1F2-426A-8941-A1EFEAEA2CF8}.Release|x64.Build.0 = Release|x64
+		{9BC9EC00-F1F2-426A-8941-A1EFEAEA2CF8}.Release|x86.ActiveCfg = Release|Win32
+		{9BC9EC00-F1F2-426A-8941-A1EFEAEA2CF8}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
