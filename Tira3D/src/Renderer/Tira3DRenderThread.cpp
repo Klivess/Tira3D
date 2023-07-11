@@ -1,12 +1,12 @@
 #include "Tira3DRenderThread.h"
 //GLFW Error Callback
-void GLFWError_Callback(int error, const char* description) {
+void Tira3DRenderThread::GLFWError_Callback(int error, const char* description) {
 	Tira3DLogging::LogToConsole("GLFW Error: " + (std::string)description);
 }
 
 //Whenever the current window gets resized.
 //unsigned int used because negative values will throw error.
-void Window_FrameBuffer_Size_Callback(GLFWwindow* window, unsigned int width, unsigned int height) {
+void Tira3DRenderThread::Window_FrameBuffer_Size_Callback(GLFWwindow* window, unsigned int width, unsigned int height) {
 	glViewport(0, 0, width, height);
 }
 
