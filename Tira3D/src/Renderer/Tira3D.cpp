@@ -11,8 +11,12 @@ void Tira3D::InstantiateWindow(int width, int height, const char* title, GLFWmon
 	// Create a thread
 	renderThreadClass = Tira3DRenderThread{};
 	renderThread = std::thread(&Tira3DRenderThread::CreateRender, &renderThreadClass, width, height, title, monitor);
-	
+	//wait for window to instantiate
 	while(renderThreadClass.WindowInstantiated==false){}
+	glfwSetErrorCallback(Tira3DRenderThread::GLFWError_Callback);
+	glfwMakeContextCurrent(renderThreadClass.currentWindow);
+	GLFWwindow* window = glfwGetCurrentContext();
+	Tira3DLogging::LogToConsole("Context is set to window");
 
 	//renderThread = std::thread(renderThreadClass.CreateRender(), width, height, title, monitor);
 	//AttachProcessToRenderThread(funcPointer, 50);

@@ -40,7 +40,7 @@ void Tira3DRenderThread::DrawTriangle() {
 
 	unsigned int buffer;
 	glGenBuffers(1, &buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, buffer);
+ 	glBindBuffer(GL_ARRAY_BUFFER, buffer);
 	glBufferData(GL_ARRAY_BUFFER, std::size(positions) * sizeof(float), positions, GL_STATIC_DRAW);
 
 	glEnableVertexAttribArray(0);
@@ -92,7 +92,7 @@ void Tira3DRenderThread::CreateRender(int width, int height, const char *title, 
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, (std::size(positions) / 2), GL_FLOAT, GL_FALSE, (2 * sizeof(float)), 0);
 
-	ShaderProgramSource source = Shader::ParseShader(R"(C:\Projects\Software\Tira3D\Tira3D\resources\shaders\Basic.kliveshader)");
+	ShaderProgramSource source = Shader::ParseShader(R"(resources\shaders\Basic.kliveshader)");
 	unsigned int shader = Shader::CreateShader(source.VertexSource, source.FragmentSource);
 	ShadersInUse.push_back(shader);
 	cout << source.VertexSource << endl;
