@@ -1,31 +1,23 @@
 #include "Tira3D.h"
-
-//Whenever the current window gets resized.
-//unsigned int used because negative values will throw error.
-void Tira3D::Window_FrameBuffer_Size_Callback(GLFWwindow* window, unsigned int width, unsigned int height) {
-	glViewport(0, 0, width, height);
-}
-
 //Initialise Tira3D (GLFW) 
 bool Tira3D::Initialize() {
-	auto result = glfwInit();
-	if (result == GLFW_FALSE) {
-		Tira3DLogging::LogToConsole("Couldn't initialize GLFW.");
-		return false;
-	}
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	return true;
+	bool result = renderThreadClass.InitialiseRender();
+	return result;
 }
 
 //Instantiate a window
-//OpenGL is a state machine which only runs on one thread, do not try to multithread 3D rendering in one window!!!
+//OpenGL is a 'state machine' type library which only runs on one thread, so this code will open up a new thread for OpenGL draw calls.
 void Tira3D::InstantiateWindow(int width, int height, const char* title, GLFWmonitor* monitor) {
-	GLFWwindow* window = glfwCreateWindow(width, height, title, monitor, NULL);
-	if (window == NULL) {
-		Tira3DLogging::LogToConsole("Failed to create GLFW window.");
-		glfwTerminate();
-		throw std::exception("Failed to create GLFW window.");
-	}
-	glfwMakeContextCurrent(window);
-	currentWindow = window;
+	// Create a thread
+	renderThreadClass = Tira3DRenderThread{};
+	renderThread = std::thread(&Tira3DRenderThread::CreateRender, &renderThreadClass, width, height, title, monitor);
+	
+	while(renderThreadClass.WindowInstantiated==false){}
+
+	//renderThread = std::thread(renderThreadClass.CreateRender(), width, height, title, monitor);
+	//AttachProcessToRenderThread(funcPointer, 50);
+}
+
+void Tira3D::CreateTriangle() {
+	renderThreadClass.DrawTriangle();
 }
