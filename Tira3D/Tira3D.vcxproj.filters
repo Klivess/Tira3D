@@ -21,13 +21,25 @@
     <ClCompile Include="src\Logger\Tira3DLogging.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\Tira3DRenderThread.cpp">
+    <ClCompile Include="src\Renderer\Tira3DRendering.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Shaders\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Files\FileUtilities.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WorldObjects\Templates\Cube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WorldObjects\WorldObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\World.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WorldObjects\ObjectAttributes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,7 +50,7 @@
     <ClInclude Include="src\Logger\Tira3DLogging.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\Tira3DRenderThread.h">
+    <ClInclude Include="src\Renderer\Tira3DRendering.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\WindowRenderInfo.h">
@@ -48,6 +60,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Files\FileUtilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WorldObjects\Templates\Cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WorldObjects\WorldObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\World.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WorldObjects\ObjectAttributes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

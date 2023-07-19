@@ -1,4 +1,5 @@
 #include "Shader.h"
+#include "../Logger/Tira3DLogging.h"
 using namespace std;
 
 ShaderProgramSource Shader::ParseShader(const std::string& filepath) {
@@ -34,7 +35,6 @@ unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
     unsigned int id = glCreateShader(type);
     const char* src = source.c_str();
     glShaderSource(id, 1, &src, nullptr);
-
     glCompileShader(id);
     int result;
     glGetShaderiv(id, GL_COMPILE_STATUS, &result);
@@ -43,7 +43,7 @@ unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
         GLsizei log_length = 0;
         GLchar message[1024];
         glGetShaderInfoLog(id, 1024, &log_length, message);
-        cout << "Failed to compile " << (type == GL_VERTEX_SHADER ? "vertex" : "fragment") << " shader:" << endl;
+        Tira3DLogging::LogToConsole("Failed to compile " + (std::string)(type == GL_VERTEX_SHADER ? "vertex" : "fragment") + " shader:");
         cout << (type == GL_VERTEX_SHADER ? "VERTEX" : "FRAGMENT: ") << message << endl;
         glDeleteShader(id);
         return 0;

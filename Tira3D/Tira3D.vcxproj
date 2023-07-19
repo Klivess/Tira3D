@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -159,19 +159,27 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\WorldObjects\ObjectAttributes.cpp" />
+    <ClCompile Include="src\WorldObjects\Templates\Cube.cpp" />
     <ClCompile Include="src\Files\FileUtilities.cpp" />
     <ClCompile Include="src\Shaders\Shader.cpp" />
     <ClCompile Include="src\Renderer\Tira3D.cpp" />
     <ClCompile Include="src\Logger\Tira3DLogging.cpp" />
-    <ClCompile Include="src\Renderer\Tira3DRenderThread.cpp" />
+    <ClCompile Include="src\Renderer\Tira3DRendering.cpp" />
+    <ClCompile Include="src\WorldObjects\WorldObject.cpp" />
+    <ClCompile Include="src\World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\WorldObjects\ObjectAttributes.h" />
+    <ClInclude Include="src\WorldObjects\Templates\Cube.h" />
     <ClInclude Include="src\Files\FileUtilities.h" />
     <ClInclude Include="src\Shaders\Shader.h" />
     <ClInclude Include="src\Renderer\WindowRenderInfo.h" />
     <ClInclude Include="src\Renderer\Tira3D.h" />
     <ClInclude Include="src\Logger\Tira3DLogging.h" />
-    <ClInclude Include="src\Renderer\Tira3DRenderThread.h" />
+    <ClInclude Include="src\Renderer\Tira3DRendering.h" />
+    <ClInclude Include="src\WorldObjects\WorldObject.h" />
+    <ClInclude Include="src\World\World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
