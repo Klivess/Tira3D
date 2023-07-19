@@ -7,7 +7,7 @@ void Tira3DRendering::GLFWError_Callback(int error, const char* description) {
 //Whenever the current window gets resized.
 //unsigned int used because negative values will throw error.
 void Tira3DRendering::Window_FrameBuffer_Size_Callback(GLFWwindow* window, unsigned int width, unsigned int height) {
-	glViewport(0, 0, width, height);
+	GLCall(glViewport(0, 0, width, height));
 }
 bool Tira3DRendering::InitialiseRender() {
 	//Initialise GLFW
@@ -22,11 +22,11 @@ bool Tira3DRendering::InitialiseRender() {
 	}
 	//keep these window hints otherwise GLFW does not work
 	//i don't care enough to need to know why this is needed
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwSetErrorCallback(GLFWError_Callback);
+	GLCall(glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3));
+	GLCall(glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3));
+	GLCall(glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE));
+	GLCall(glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE));
+	GLCall(glfwSetErrorCallback(GLFWError_Callback));
 	return true;
 }
 void Tira3DRendering::DrawTriangle() {
@@ -37,12 +37,12 @@ void Tira3DRendering::DrawTriangle() {
 	};
 
 	unsigned int buffer;
-	glGenBuffers(1, &buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, buffer);
-	glBufferData(GL_ARRAY_BUFFER, std::size(positions) * sizeof(float), positions, GL_STATIC_DRAW);
+	GLCall(glGenBuffers(1, &buffer));
+	GLCall(glBindBuffer(GL_ARRAY_BUFFER, buffer));
+	GLCall(glBufferData(GL_ARRAY_BUFFER, std::size(positions) * sizeof(float), positions, GL_STATIC_DRAW));
 
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, (std::size(positions) / 2), GL_FLOAT, GL_FALSE, (2 * sizeof(float)), 0);
+	GLCall(glEnableVertexAttribArray(0));
+	GLCall(glVertexAttribPointer(0, (std::size(positions) / 2), GL_FLOAT, GL_FALSE, (2 * sizeof(float)), 0));
 
 	ShaderProgramSource source = Shader::ParseShader("C:\Projects\Software\Tira3D\Tira3D\resources\shaders\Basic.kliveshader");
 	unsigned int shader = Shader::CreateShader(source.VertexSource, source.FragmentSource);
@@ -51,13 +51,13 @@ void Tira3DRendering::DrawTriangle() {
 
 void Tira3DRendering::AddShaderToProgram(unsigned int shader) {
 	ShadersInUse.push_back(shader);
-	glUseProgram(shader);
+	GLCall(glUseProgram(shader));
 }
 
 void Tira3DRendering::RemoveShaderFromProgram(unsigned int shader) {
 	auto index = std::find(ShadersInUse.begin(), ShadersInUse.end(), shader);
 	ShadersInUse.erase(index);
-	glUseProgram(0);
+	GLCall(glUseProgram(0));
 }
 
 void Tira3DRendering::CreateRender(int width, int height, const char *title, GLFWmonitor* monitor) {
@@ -65,11 +65,11 @@ void Tira3DRendering::CreateRender(int width, int height, const char *title, GLF
 	Tira3DRendering::currentWindow = glfwCreateWindow(width, height, title, monitor, NULL);
 	*WindowClosed = false;
 	if (currentWindow == NULL) {
-		glfwTerminate();
+		GLCall(glfwTerminate());
 		throw std::exception("Failed to create GLFW window.");
 	}
-	glfwMakeContextCurrent(Tira3DRendering::currentWindow);
-	glfwSwapInterval(1);
+	GLCall(glfwMakeContextCurrent(Tira3DRendering::currentWindow));
+	GLCall(glfwSwapInterval(1));
 	//Initialise GLEW
 	GLenum err = glewInit();
 	if (err != GLEW_OK)
@@ -80,14 +80,14 @@ void Tira3DRendering::CreateRender(int width, int height, const char *title, GLF
 	WindowInstantiated = true;
 	while (!glfwWindowShouldClose(currentWindow))
 	{
-		glfwSwapBuffers(currentWindow);
+		GLCall(glfwSwapBuffers(currentWindow));
 
 		/* Render here */
-		glClear(GL_COLOR_BUFFER_BIT);
+		GLCall(glClear(GL_COLOR_BUFFER_BIT));
 
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		GLCall(glDrawArrays(GL_TRIANGLES, 0, 3));
 
-		glfwPollEvents();
+		GLCall(glfwPollEvents());
 	}
 	//When window/application closes
 	std::vector<unsigned int> tempVec = ShadersInUse;

@@ -168,6 +168,7 @@
     <ClCompile Include="src\Renderer\Tira3DRendering.cpp" />
     <ClCompile Include="src\WorldObjects\WorldObject.cpp" />
     <ClCompile Include="src\World\World.cpp" />
+    <ClCompile Include="src\Renderer\RenderObjects\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\WorldObjects\ObjectAttributes.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="src\Renderer\Tira3DRendering.h" />
     <ClInclude Include="src\WorldObjects\WorldObject.h" />
     <ClInclude Include="src\World\World.h" />
+    <ClInclude Include="src\Renderer\RenderObjects\VertexBuffer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
