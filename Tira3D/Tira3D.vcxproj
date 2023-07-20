@@ -159,10 +159,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Renderer\RenderObjects\IndexBuffer.cpp" />
     <ClCompile Include="src\WorldObjects\ObjectAttributes.cpp" />
     <ClCompile Include="src\WorldObjects\Templates\Cube.cpp" />
     <ClCompile Include="src\Files\FileUtilities.cpp" />
-    <ClCompile Include="src\Shaders\Shader.cpp" />
+    <ClCompile Include="src\Renderer\Shaders\Shader.cpp" />
     <ClCompile Include="src\Renderer\Tira3D.cpp" />
     <ClCompile Include="src\Logger\Tira3DLogging.cpp" />
     <ClCompile Include="src\Renderer\Tira3DRendering.cpp" />
@@ -171,10 +172,11 @@
     <ClCompile Include="src\Renderer\RenderObjects\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Renderer\RenderObjects\IndexBuffer.h" />
     <ClInclude Include="src\WorldObjects\ObjectAttributes.h" />
     <ClInclude Include="src\WorldObjects\Templates\Cube.h" />
     <ClInclude Include="src\Files\FileUtilities.h" />
-    <ClInclude Include="src\Shaders\Shader.h" />
+    <ClInclude Include="src\Renderer\Shaders\Shader.h" />
     <ClInclude Include="src\Renderer\WindowRenderInfo.h" />
     <ClInclude Include="src\Renderer\Tira3D.h" />
     <ClInclude Include="src\Logger\Tira3DLogging.h" />

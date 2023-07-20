@@ -13,7 +13,7 @@ bool GLLogCall(const char* function, const char* file, int line);
 #define ASSERT(x) if(!(x)) __debugbreak();
 
 //wrap every single OpenGL reference/call in GLCall().
-#define GLCall(x) GLClearError();\
+#define GLCall(x) GLClearError(); Tira3DLogging::LogToConsole(#x);\
 	x;\
 	ASSERT(GLLogCall(#x, __FILE__, __LINE__));
 

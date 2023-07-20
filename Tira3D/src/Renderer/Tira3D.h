@@ -7,6 +7,7 @@
 #include "Tira3DRendering.h"
 #include <thread>
 #include <vector>
+#include "../WorldObjects/WorldObject.h"
 
 class Tira3D
 {
@@ -17,6 +18,8 @@ public:
 	void InstantiateWindow(int width, int height, const char* title, GLFWmonitor* monitor);
 	void CreateTriangle();
 	void WaitUntilUserClosedWindow();
+
+	WorldObject CreateWorldObject(TiraObjects object, WorldPosition position, WorldScale scale);
 private:
 	Tira3DRendering renderThreadClass;
 	std::thread renderThread;

@@ -36,10 +36,7 @@ void Tira3DRendering::DrawTriangle() {
 		1.0f, -1.0f
 	};
 
-	unsigned int buffer;
-	GLCall(glGenBuffers(1, &buffer));
-	GLCall(glBindBuffer(GL_ARRAY_BUFFER, buffer));
-	GLCall(glBufferData(GL_ARRAY_BUFFER, std::size(positions) * sizeof(float), positions, GL_STATIC_DRAW));
+	VertexBuffer vb(positions);
 
 	GLCall(glEnableVertexAttribArray(0));
 	GLCall(glVertexAttribPointer(0, (std::size(positions) / 2), GL_FLOAT, GL_FALSE, (2 * sizeof(float)), 0));
@@ -61,6 +58,12 @@ void Tira3DRendering::RemoveShaderFromProgram(unsigned int shader) {
 }
 
 void Tira3DRendering::CreateRender(int width, int height, const char *title, GLFWmonitor* monitor) {
+	float positions[6] = {
+	0.5f, 1.0f,
+	-1.0f, -1.0f,
+	1.0f, -1.0f
+	};
+
 	InitialiseRender();
 	Tira3DRendering::currentWindow = glfwCreateWindow(width, height, title, monitor, NULL);
 	*WindowClosed = false;

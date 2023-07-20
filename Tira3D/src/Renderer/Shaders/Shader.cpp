@@ -1,5 +1,5 @@
 #include "Shader.h"
-#include "../Logger/Tira3DLogging.h"
+#include "../../Logger/Tira3DLogging.h"
 using namespace std;
 
 ShaderProgramSource Shader::ParseShader(const std::string& filepath) {

@@ -19,3 +19,9 @@ void Tira3D::WaitUntilUserClosedWindow() {
 	renderThread.join();
 	return;
 }
+
+WorldObject Tira3D::CreateWorldObject(TiraObjects object, WorldPosition position, WorldScale scale)
+{
+	WorldObject worldObj(&renderThreadClass);
+	return worldObj;
+}

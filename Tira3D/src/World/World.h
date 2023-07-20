@@ -2,7 +2,12 @@
 
 class WorldPosition {
 public:
-	WorldPosition CreateWorldPosition(float x, float y, float z);
+	WorldPosition CreateWorldPosition(float x, float y, float z) {
+		this->x = x;
+		this->y = y;
+		this->z = z;
+		return *this;
+	}
 	float x;
 	float y;
 	float z;
@@ -14,6 +19,7 @@ public:
 		this->x=x;
 		this->y=y;
 		this->z=z;
+		return *this;
 	}
 	float x = 1;
 	float y = 1;

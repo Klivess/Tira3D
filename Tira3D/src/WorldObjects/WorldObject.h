@@ -1,11 +1,18 @@
-#include "../Renderer/Tira3D.h"
+#include "../Renderer/Tira3DRendering.h"
 #include <iostream>
 #include "../World/World.h"
-
 #pragma once
+
+enum TiraObjects {
+	None,
+	Cube
+};
+
 class WorldObject
 {
 public:
+	WorldTransform currentWorldTransform;
+
 	WorldObject(Tira3DRendering* client) {
 		this->RenderClient = client;
 	}
@@ -15,4 +22,3 @@ public:
 	void InstantiateObject(WorldPosition worldPos);
 	void InstantiateObject(WorldTransform worldPos);
 };
-

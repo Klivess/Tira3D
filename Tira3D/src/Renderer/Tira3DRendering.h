@@ -5,7 +5,9 @@
 #include <iostream>
 #include <string>
 #include <thread>
-#include "../Shaders/Shader.h"
+#include "Shaders/Shader.h"
+#include "RenderObjects/IndexBuffer.h"
+#include "RenderObjects/VertexBuffer.h"
 
 class Tira3DRendering {
 public:
