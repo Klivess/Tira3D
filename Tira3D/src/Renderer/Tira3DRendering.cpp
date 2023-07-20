@@ -20,13 +20,13 @@ bool Tira3DRendering::InitialiseRender() {
 		std::string str = "GLFW is initialised. Version: " + (std::string)glfwGetVersionString();
 		Tira3DLogging::LogToConsole(str);
 	}
+	glfwSetErrorCallback(GLFWError_Callback);
 	//keep these window hints otherwise GLFW does not work
 	//i don't care enough to need to know why this is needed
-	GLCall(glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3));
-	GLCall(glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3));
-	GLCall(glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE));
-	GLCall(glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE));
-	GLCall(glfwSetErrorCallback(GLFWError_Callback));
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	return true;
 }
 void Tira3DRendering::DrawTriangle() {
@@ -68,11 +68,11 @@ void Tira3DRendering::CreateRender(int width, int height, const char *title, GLF
 	Tira3DRendering::currentWindow = glfwCreateWindow(width, height, title, monitor, NULL);
 	*WindowClosed = false;
 	if (currentWindow == NULL) {
-		GLCall(glfwTerminate());
+		glfwTerminate();
 		throw std::exception("Failed to create GLFW window.");
 	}
-	GLCall(glfwMakeContextCurrent(Tira3DRendering::currentWindow));
-	GLCall(glfwSwapInterval(1));
+	glfwMakeContextCurrent(Tira3DRendering::currentWindow);
+	glfwSwapInterval(1);
 	//Initialise GLEW
 	GLenum err = glewInit();
 	if (err != GLEW_OK)
@@ -81,6 +81,8 @@ void Tira3DRendering::CreateRender(int width, int height, const char *title, GLF
 		throw ("Couldn't initialise GLEW: " + (const char)glewGetErrorString(err));
 	}
 	WindowInstantiated = true;
+
+	DrawTriangle();
 	while (!glfwWindowShouldClose(currentWindow))
 	{
 		GLCall(glfwSwapBuffers(currentWindow));

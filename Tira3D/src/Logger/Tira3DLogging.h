@@ -10,12 +10,14 @@ bool GLLogCall(const char* function, const char* file, int line);
 
 //__debugbreak is compiler specific!!! will rewrite this in the future
 //works on Visual Studio
-#define ASSERT(x) if(!(x)) __debugbreak();
+#define ASSERT(x) if (!(x)) __debugbreak()
 
-//wrap every single OpenGL reference/call in GLCall().
-#define GLCall(x) GLClearError(); Tira3DLogging::LogToConsole(#x);\
-	x;\
-	ASSERT(GLLogCall(#x, __FILE__, __LINE__));
+//wrap every single GL reference/call in GLCall().
+//do NOT wrap GLFW calls.
+#define GLCall(x)                \
+    GLClearError();              \
+    x;                           \
+    ASSERT(GLLogCall(#x, __FILE__, __LINE__))
 
 
 class Tira3DLogging
