@@ -16,7 +16,7 @@ public:
 	WorldObject(Tira3DRendering* client) {
 		this->RenderClient = client;
 	}
-	vector<int> positions;
+	std::vector<int> positions;
 	Tira3DRendering* RenderClient = nullptr;
 
 	void InstantiateObject(WorldPosition worldPos);

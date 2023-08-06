@@ -18,13 +18,13 @@ public:
 
 	void CreateRender(int width, int height, const char* title, GLFWmonitor* monitor);
 private:
-	vector<unsigned int> shadersInUse = {};
+	std::vector<unsigned int> shadersInUse = {};
 
 	//Q: Is using std::vector a good idea to keep buffers in scope?
 	//A: No. Not at all. This will cause disastrous performance issues as Tira3D scales, but it will do for now.
-	vector<VertexBuffer> activeVertexBuffers;
-	vector<IndexBuffer> activeIndexBuffer;
-	vector<VAO> activeVAOs;
+	std::vector<VertexBuffer> activeVertexBuffers;
+	std::vector<IndexBuffer> activeIndexBuffer;
+	std::vector<VAO> activeVAOs;
 
 	// Function to add a new vertex buffer
 	VertexBuffer& CreateVertexBuffer(const void* data, unsigned int size) {
@@ -47,7 +47,5 @@ private:
 	static void Window_FrameBuffer_Size_Callback(GLFWwindow* window, int width, int height);
 	static void GLFWError_Callback(int error, const char* description);
 	bool InitialiseRender();
-	void AddShaderToProgram(unsigned int shader);
-	void RemoveShaderFromProgram(unsigned int shader);
 };
 

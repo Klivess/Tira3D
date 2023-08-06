@@ -30,7 +30,7 @@ bool Tira3DRendering::InitialiseRender() {
 	return true;
 }
 
-
+/*
 void Tira3DRendering::AddShaderToProgram(unsigned int shader) {
 	shadersInUse.push_back(shader);
 	GLCall(glUseProgram(shader));
@@ -41,6 +41,7 @@ void Tira3DRendering::RemoveShaderFromProgram(unsigned int shader) {
 	shadersInUse.erase(index);
 	GLCall(glUseProgram(0));
 }
+*/
 
 void Tira3DRendering::CreateRender(int width, int height, const char* title, GLFWmonitor* monitor) {
 	InitialiseRender();
@@ -82,15 +83,16 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 	VertexBufferLayout vbLayout;
 	vbLayout.Push<float>(3); //3 is amount of dimensions
 	vao.AddBuffer(vb, vbLayout);
-	IndexBuffer ib = CreateIndexBuffer(indices, size(indices));
+	IndexBuffer ib = CreateIndexBuffer(indices, std::size(indices));
 	vao.Bind();
 	ib.Bind();
 
 	//Note by Klives: This is absolute, I know. This is a placeholder and if you are contributing to this project feel free to modify this.
 	//Although the shader file is relative to this project, Tira3D Testing does not recognise Tira3D relative paths.
-	ShaderProgramSource shaderData = Shader::ParseShader(R"(C:\Projects\Software\Tira3D\Tira3D\resources\shaders\Basic.kliveshader)");
-	unsigned int shader = Shader::CreateShader(shaderData.VertexSource, shaderData.FragmentSource);
-	AddShaderToProgram(shader);
+	Shader shader(R"(C:\Projects\Software\Tira3D\Tira3D\resources\shaders\Basic.kliveshader)");
+	shader.Bind();
+	//set colour
+	shader.SetUniform4f("u_Color", 1.0, 0.0, 0.0, 1.0);
 
 	while (!glfwWindowShouldClose(currentWindow))
 	{
@@ -100,13 +102,8 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 		GLCall(glClear(GL_COLOR_BUFFER_BIT));
 
 		GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, indices));
-
 		glfwPollEvents();
 	}
 	//When window/application closes
-	std::vector<unsigned int> tempVec = shadersInUse;
-	for (auto shader : tempVec) {
-		RemoveShaderFromProgram(shader);
-	}
 	*WindowClosed = true;
 }

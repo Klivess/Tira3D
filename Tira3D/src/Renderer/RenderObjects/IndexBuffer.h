@@ -8,14 +8,15 @@
 class IndexBuffer
 {
 public:
-	//ID of GPU buffer location 
-	unsigned int RendererID;
 	IndexBuffer(const unsigned int* data, unsigned int count);
 	~IndexBuffer();
 
 	void Bind() const;
 	void Unbind() const;
 private:
+	//ID of GPU buffer location 
+	unsigned int RendererID;
+
 	unsigned int Count;
 };
 

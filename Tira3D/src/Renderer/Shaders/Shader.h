@@ -5,19 +5,37 @@
 #include <vector>
 #include "GL/glew.h"
 #include "glfw3.h"
-
-using namespace std;
+#include <unordered_map>
 
 struct ShaderProgramSource {
 	std::string VertexSource;
 	std::string FragmentSource;
 };
-#pragma once
-class Shader
-{
+
+class Shader {
+private:
+	std::string m_shaderFilepath;
+	unsigned int m_RendererID;
+	std::unordered_map<std::string, unsigned int> m_UniformLocationCache;
+
+	ShaderProgramSource ParseShader(const std::string& filepath);
+	unsigned int CompileShader(unsigned int type, const std::string& source);
+	unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader);
+
+	int GetUniformLocation(const std::string& name);
 public:
-	static ShaderProgramSource ParseShader(const std::string& filepath);
-	static unsigned int CompileShader(unsigned int type, const std::string& source);
-	static unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader);
+	Shader(const std::string& filepath)
+		: m_shaderFilepath(filepath), m_RendererID(0)
+	{
+		ShaderProgramSource source = ParseShader(filepath);
+		m_RendererID = CreateShader(source.VertexSource, source.FragmentSource);
+	}
+	~Shader();
+
+	void Bind() const;
+	void Unbind() const;
+
+	//set uniforms
+	void SetUniform4f(const std::string& name, float v0, float v1, float f2, float f3);
 };
 
