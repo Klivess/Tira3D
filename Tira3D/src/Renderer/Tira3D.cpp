@@ -6,16 +6,13 @@ void Tira3D::InstantiateWindow(int width, int height, const char* title, GLFWmon
 	// Create a thread
 	renderThread = std::thread(&Tira3DRendering::CreateRender, &renderThreadClass, width, height, title, monitor);
 	//wait for window to instantiate
-	while(renderThreadClass.WindowInstantiated==false){}
+	while (renderThreadClass.WindowInstantiated == false) {}
 	//renderThread = std::thread(renderThreadClass.CreateRender(), width, height, title, monitor);
 	//AttachProcessToRenderThread(funcPointer, 50);
 }
 
-void Tira3D::CreateTriangle() {
-	renderThreadClass.DrawTriangle();
-}
 void Tira3D::WaitUntilUserClosedWindow() {
-	while (UserClosedWindow == false){}
+	while (UserClosedWindow == false) {}
 	renderThread.join();
 	return;
 }
@@ -23,5 +20,7 @@ void Tira3D::WaitUntilUserClosedWindow() {
 WorldObject Tira3D::CreateWorldObject(TiraObjects object, WorldPosition position, WorldScale scale)
 {
 	WorldObject worldObj(&renderThreadClass);
+	worldObj.currentWorldTransform.position = position;
+	worldObj.currentWorldTransform.scale = scale;
 	return worldObj;
 }

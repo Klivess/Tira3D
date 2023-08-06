@@ -4,7 +4,6 @@ using namespace std;
 
 ShaderProgramSource Shader::ParseShader(const std::string& filepath) {
     std::ifstream stream(filepath);
-
     enum class ShaderType {
         NONE = -1, VERTEX = 0, FRAGMENT = 1
     };
@@ -28,28 +27,36 @@ ShaderProgramSource Shader::ParseShader(const std::string& filepath) {
         }
     }
     ShaderProgramSource source = ShaderProgramSource{};
+    source.VertexSource = ss[(int)ShaderType::VERTEX].str();
+    source.FragmentSource = ss[(int)ShaderType::FRAGMENT].str();
+
+    if (source.FragmentSource==""&&source.VertexSource=="") {
+        Tira3DLogging::LogToConsole("Couldn't find shader! " + filepath);
+    }
+
     return source;
 }
 unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
 {
     unsigned int id = glCreateShader(type);
     const char* src = source.c_str();
-    glShaderSource(id, 1, &src, nullptr);
-    glCompileShader(id);
+    GLCall(glShaderSource(id, 1, &src, nullptr));
+    GLCall(glCompileShader(id));
     int result;
-    glGetShaderiv(id, GL_COMPILE_STATUS, &result);
+    GLCall(glGetShaderiv(id, GL_COMPILE_STATUS, &result));
     //Error Handling
     if (result == GL_FALSE) {
         GLsizei log_length = 0;
         GLchar message[1024];
-        glGetShaderInfoLog(id, 1024, &log_length, message);
+        GLCall(glGetShaderInfoLog(id, 1024, &log_length, message));
         Tira3DLogging::LogToConsole("Failed to compile " + (std::string)(type == GL_VERTEX_SHADER ? "vertex" : "fragment") + " shader:");
         cout << (type == GL_VERTEX_SHADER ? "VERTEX" : "FRAGMENT: ") << message << endl;
-        glDeleteShader(id);
+        GLCall(glDeleteShader(id));
         return 0;
     }
     else {
-        cout << "Successfully compiled " << (type == GL_VERTEX_SHADER ? "vertex" : "fragment") << " shader.";
+        string dec = (type == GL_VERTEX_SHADER ? "vertex" : "fragment");
+        Tira3DLogging::LogToConsole("Successfully compiled " + dec + " shader.");
     }
     return id;
 }
@@ -58,13 +65,13 @@ unsigned int Shader::CreateShader(const std::string& vertexShader, const std::st
     unsigned int vs = Shader::CompileShader(GL_VERTEX_SHADER, vertexShader);
     unsigned int fs = Shader::CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
 
-    glAttachShader(program, vs);
-    glAttachShader(program, fs);
-    glLinkProgram(program);
-    glValidateProgram(program);
+    GLCall(glAttachShader(program, fs));
+    GLCall(glAttachShader(program, vs));
+    GLCall(glLinkProgram(program));
+    GLCall(glValidateProgram(program));
 
-    glDeleteShader(vs);
-    glDeleteShader(fs);
+    GLCall(glDeleteShader(vs));
+    GLCall(glDeleteShader(fs));
 
     return program;
 }

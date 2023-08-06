@@ -12,8 +12,6 @@ int main() {
 
 
 
-
-
 		tira.WaitUntilUserClosedWindow();
 		cout << "Detected closed window. Closing..." << endl;
 		return 0;

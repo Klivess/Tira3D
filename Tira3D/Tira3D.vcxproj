@@ -121,6 +121,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,6 +144,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -160,6 +162,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Renderer\RenderObjects\IndexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\RenderObjects\VertexBufferLayout.cpp" />
     <ClCompile Include="src\WorldObjects\ObjectAttributes.cpp" />
     <ClCompile Include="src\WorldObjects\Templates\Cube.cpp" />
     <ClCompile Include="src\Files\FileUtilities.cpp" />
@@ -170,9 +173,11 @@
     <ClCompile Include="src\WorldObjects\WorldObject.cpp" />
     <ClCompile Include="src\World\World.cpp" />
     <ClCompile Include="src\Renderer\RenderObjects\VertexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\RenderObjects\VAO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Renderer\RenderObjects\IndexBuffer.h" />
+    <ClInclude Include="src\Renderer\RenderObjects\VertexBufferLayout.h" />
     <ClInclude Include="src\WorldObjects\ObjectAttributes.h" />
     <ClInclude Include="src\WorldObjects\Templates\Cube.h" />
     <ClInclude Include="src\Files\FileUtilities.h" />
@@ -184,6 +189,10 @@
     <ClInclude Include="src\WorldObjects\WorldObject.h" />
     <ClInclude Include="src\World\World.h" />
     <ClInclude Include="src\Renderer\RenderObjects\VertexBuffer.h" />
+    <ClInclude Include="src\Renderer\RenderObjects\VAO.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\shaders\Basic.kliveshader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

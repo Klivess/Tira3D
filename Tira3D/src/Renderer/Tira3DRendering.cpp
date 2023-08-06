@@ -1,12 +1,13 @@
 #include "Tira3DRendering.h"
 #include <future>
+#include <optional>
 //GLFW Error Callback
 void Tira3DRendering::GLFWError_Callback(int error, const char* description) {
 	Tira3DLogging::LogToConsole("GLFW Error: " + (std::string)description);
 }
 //Whenever the current window gets resized.
 //unsigned int used because negative values will throw error.
-void Tira3DRendering::Window_FrameBuffer_Size_Callback(GLFWwindow* window, unsigned int width, unsigned int height) {
+void Tira3DRendering::Window_FrameBuffer_Size_Callback(GLFWwindow* window, int width, int height) {
 	GLCall(glViewport(0, 0, width, height));
 }
 bool Tira3DRendering::InitialiseRender() {
@@ -21,49 +22,27 @@ bool Tira3DRendering::InitialiseRender() {
 		Tira3DLogging::LogToConsole(str);
 	}
 	glfwSetErrorCallback(GLFWError_Callback);
-	//keep these window hints otherwise GLFW does not work
-	//i don't care enough to need to know why this is needed
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_SAMPLES, 4);
 	return true;
 }
-void Tira3DRendering::DrawTriangle() {
-	float positions[6] = {
-		0.5f, 1.0f,
-		-1.0f, -1.0f,
-		1.0f, -1.0f
-	};
 
-	VertexBuffer vb(positions);
-
-	GLCall(glEnableVertexAttribArray(0));
-	GLCall(glVertexAttribPointer(0, (std::size(positions) / 2), GL_FLOAT, GL_FALSE, (2 * sizeof(float)), 0));
-
-	ShaderProgramSource source = Shader::ParseShader("C:\Projects\Software\Tira3D\Tira3D\resources\shaders\Basic.kliveshader");
-	unsigned int shader = Shader::CreateShader(source.VertexSource, source.FragmentSource);
-	AddShaderToProgram(shader);
-}
 
 void Tira3DRendering::AddShaderToProgram(unsigned int shader) {
-	ShadersInUse.push_back(shader);
+	shadersInUse.push_back(shader);
 	GLCall(glUseProgram(shader));
 }
 
 void Tira3DRendering::RemoveShaderFromProgram(unsigned int shader) {
-	auto index = std::find(ShadersInUse.begin(), ShadersInUse.end(), shader);
-	ShadersInUse.erase(index);
+	auto index = std::find(shadersInUse.begin(), shadersInUse.end(), shader);
+	shadersInUse.erase(index);
 	GLCall(glUseProgram(0));
 }
 
-void Tira3DRendering::CreateRender(int width, int height, const char *title, GLFWmonitor* monitor) {
-	float positions[6] = {
-	0.5f, 1.0f,
-	-1.0f, -1.0f,
-	1.0f, -1.0f
-	};
-
+void Tira3DRendering::CreateRender(int width, int height, const char* title, GLFWmonitor* monitor) {
 	InitialiseRender();
 	Tira3DRendering::currentWindow = glfwCreateWindow(width, height, title, monitor, NULL);
 	*WindowClosed = false;
@@ -73,6 +52,7 @@ void Tira3DRendering::CreateRender(int width, int height, const char *title, GLF
 	}
 	glfwMakeContextCurrent(Tira3DRendering::currentWindow);
 	glfwSwapInterval(1);
+	glEnable(GL_MULTISAMPLE);
 	//Initialise GLEW
 	GLenum err = glewInit();
 	if (err != GLEW_OK)
@@ -81,21 +61,50 @@ void Tira3DRendering::CreateRender(int width, int height, const char *title, GLF
 		throw ("Couldn't initialise GLEW: " + (const char)glewGetErrorString(err));
 	}
 	WindowInstantiated = true;
+	glfwSetFramebufferSizeCallback(Tira3DRendering::currentWindow, Tira3DRendering::Window_FrameBuffer_Size_Callback);
 
-	DrawTriangle();
+
+	float vertices[] = {
+		-0.5f, -0.5f, 0.0f, //0
+		 0.5f, -0.5f, 0.0f, //1
+		 0.0f,  0.5f, 0.0f, //2
+		 1.0f,  1.0f, 0.0f, //3
+		-1.0f,  1.0f, 0.0f, //4
+	};
+
+	unsigned int indices[] = {
+		0, 1, 2,
+		2, 3, 4
+	};
+
+	VAO vao = CreateVAO();
+	VertexBuffer vb = CreateVertexBuffer(vertices, sizeof(vertices));
+	VertexBufferLayout vbLayout;
+	vbLayout.Push<float>(3); //3 is amount of dimensions
+	vao.AddBuffer(vb, vbLayout);
+	IndexBuffer ib = CreateIndexBuffer(indices, size(indices));
+	vao.Bind();
+	ib.Bind();
+
+	//Note by Klives: This is absolute, I know. This is a placeholder and if you are contributing to this project feel free to modify this.
+	//Although the shader file is relative to this project, Tira3D Testing does not recognise Tira3D relative paths.
+	ShaderProgramSource shaderData = Shader::ParseShader(R"(C:\Projects\Software\Tira3D\Tira3D\resources\shaders\Basic.kliveshader)");
+	unsigned int shader = Shader::CreateShader(shaderData.VertexSource, shaderData.FragmentSource);
+	AddShaderToProgram(shader);
+
 	while (!glfwWindowShouldClose(currentWindow))
 	{
-		GLCall(glfwSwapBuffers(currentWindow));
+		glfwSwapBuffers(currentWindow);
 
-		/* Render here */
+		// Render here
 		GLCall(glClear(GL_COLOR_BUFFER_BIT));
 
-		GLCall(glDrawArrays(GL_TRIANGLES, 0, 3));
+		GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, indices));
 
-		GLCall(glfwPollEvents());
+		glfwPollEvents();
 	}
 	//When window/application closes
-	std::vector<unsigned int> tempVec = ShadersInUse;
+	std::vector<unsigned int> tempVec = shadersInUse;
 	for (auto shader : tempVec) {
 		RemoveShaderFromProgram(shader);
 	}

@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include "GL/glew.h"
 #include "glfw3.h"
 #pragma once
