@@ -3,8 +3,8 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include "GL/glew.h"
-#include "glfw3.h"
+#include "../../vendor/glew.h"
+#include "../../vendor/glfw3.h"
 #include <unordered_map>
 
 struct ShaderProgramSource {
@@ -36,6 +36,8 @@ public:
 	void Unbind() const;
 
 	//set uniforms
+	void SetUniform1i(const std::string& name, int value);
+	void SetUniform1f(const std::string& name, float value);
 	void SetUniform4f(const std::string& name, float v0, float v1, float f2, float f3);
 };
 

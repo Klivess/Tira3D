@@ -1,6 +1,7 @@
 #include "Tira3DRendering.h"
 #include <future>
 #include <optional>
+#include <math.h>
 //GLFW Error Callback
 void Tira3DRendering::GLFWError_Callback(int error, const char* description) {
 	Tira3DLogging::LogToConsole("GLFW Error: " + (std::string)description);
@@ -53,7 +54,9 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 	}
 	glfwMakeContextCurrent(Tira3DRendering::currentWindow);
 	glfwSwapInterval(1);
-	glEnable(GL_MULTISAMPLE);
+	GLCall(glEnable(GL_MULTISAMPLE));
+	GLCall(glEnable(GL_BLEND));
+	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	//Initialise GLEW
 	GLenum err = glewInit();
 	if (err != GLEW_OK)
@@ -66,44 +69,50 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 
 
 	float vertices[] = {
-		-0.5f, -0.5f, 0.0f, //0
-		 0.5f, -0.5f, 0.0f, //1
-		 0.0f,  0.5f, 0.0f, //2
-		 1.0f,  1.0f, 0.0f, //3
-		-1.0f,  1.0f, 0.0f, //4
-	};
-
-	unsigned int indices[] = {
-		0, 1, 2,
-		2, 3, 4
+		-0.5f, -0.5f, 0.0f, -0.5f, -0.5f, //0
+		 0.5,  -0.5f, 0.0f,  0.5,  -0.5f,//1
+		 0.5f, 0.5f, 0.0f, 0.5f, 0.5f, //2
 	};
 
 	VAO vao = CreateVAO();
 	VertexBuffer vb = CreateVertexBuffer(vertices, sizeof(vertices));
 	VertexBufferLayout vbLayout;
-	vbLayout.Push<float>(3); //3 is amount of dimensions
+	vbLayout.Push<float>(3);
+	vbLayout.Push<float>(2);
 	vao.AddBuffer(vb, vbLayout);
-	IndexBuffer ib = CreateIndexBuffer(indices, std::size(indices));
 	vao.Bind();
-	ib.Bind();
 
 	//Note by Klives: This is absolute, I know. This is a placeholder and if you are contributing to this project feel free to modify this.
 	//Although the shader file is relative to this project, Tira3D Testing does not recognise Tira3D relative paths.
 	Shader shader(R"(C:\Projects\Software\Tira3D\Tira3D\resources\shaders\Basic.kliveshader)");
 	shader.Bind();
-	//set colour
-	shader.SetUniform4f("u_Color", 1.0, 0.0, 0.0, 1.0);
+
+	Texture tex(R"(C:\Projects\Software\Tira3D\Tira3D\resources\textures\TestTex3.jpg)");
+	tex.Bind();
+	shader.SetUniform1i("u_Texture", 0);
 
 	while (!glfwWindowShouldClose(currentWindow))
 	{
 		glfwSwapBuffers(currentWindow);
 
 		// Render here
-		GLCall(glClear(GL_COLOR_BUFFER_BIT));
+		Clear();
+		Draw(vao, shader);
 
-		GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, indices));
 		glfwPollEvents();
 	}
 	//When window/application closes
 	*WindowClosed = true;
+}
+
+void Tira3DRendering::Clear()
+{
+	GLCall(glClear(GL_COLOR_BUFFER_BIT));
+}
+
+void Tira3DRendering::Draw(const VAO& vao, const Shader& shader) const
+{
+	shader.Bind();
+	vao.Bind();
+	GLCall(glDrawArrays(GL_TRIANGLES, 0, 6));
 }

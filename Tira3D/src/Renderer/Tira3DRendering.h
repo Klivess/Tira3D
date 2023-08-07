@@ -1,6 +1,6 @@
 #pragma once
-#include "GL/glew.h"
-#include "glfw3.h"
+#include "../vendor/glew.h"
+#include "../vendor/glfw3.h"
 #include "../Logger/Tira3DLogging.h"
 #include <iostream>
 #include <string>
@@ -9,6 +9,7 @@
 #include "RenderObjects/IndexBuffer.h"
 #include "RenderObjects/VertexBuffer.h"
 #include "RenderObjects/VAO.h"
+#include "Textures/Texture.h"
 
 class Tira3DRendering {
 public:
@@ -17,6 +18,8 @@ public:
 	GLFWwindow* currentWindow;
 
 	void CreateRender(int width, int height, const char* title, GLFWmonitor* monitor);
+	void Clear();
+	void Draw(const VAO& VAO, const Shader& shader) const;
 private:
 	std::vector<unsigned int> shadersInUse = {};
 

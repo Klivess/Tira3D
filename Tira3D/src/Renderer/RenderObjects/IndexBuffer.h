@@ -1,5 +1,5 @@
-#include "GL/glew.h"
-#include "glfw3.h"
+#include "../../vendor/glew.h"
+#include "../../vendor/glfw3.h"
 #include "../../Logger/Tira3DLogging.h"
 #include <iostream>
 #pragma once
@@ -8,6 +8,8 @@
 class IndexBuffer
 {
 public:
+	//this is a bad idea and will be removed in the future.
+	const unsigned int* m_indices;
 	IndexBuffer(const unsigned int* data, unsigned int count);
 	~IndexBuffer();
 

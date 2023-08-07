@@ -2,6 +2,7 @@
 
 IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count) : Count(count)
 {
+	m_indices = data;
 	GLCall(glGenBuffers(1, &RendererID));
 	GLCall(glBindBuffer(GL_ARRAY_BUFFER, RendererID));
 	GLCall(glBufferData(GL_ARRAY_BUFFER, count * sizeof(unsigned int), data, GL_STATIC_DRAW));

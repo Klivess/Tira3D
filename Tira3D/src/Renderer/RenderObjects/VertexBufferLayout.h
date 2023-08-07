@@ -1,5 +1,5 @@
 #pragma once
-#include "GL/glew.h"
+#include "../../vendor/glew.h"
 
 struct VertexBufferElement {
 	unsigned int type;

@@ -17,6 +17,8 @@ std::string TryGetErrorMessage(unsigned int err) {
 		return "INVALID_VALUE";
 	case 1282:
 		return "INVALID_OPERATION";
+	case 1280:
+		return "INVALID_ENUM";
 	default:
 		return std::to_string(err);
 	}

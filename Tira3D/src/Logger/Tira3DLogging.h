@@ -1,6 +1,6 @@
 #include <iostream>
-#include "GL/glew.h"
-#include "glfw3.h"
+#include "../vendor/glew.h"
+#include "../vendor/glfw3.h"
 #pragma once
 
 

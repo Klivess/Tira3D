@@ -1,6 +1,8 @@
 #pragma once
-#include "GL/glew.h"
-#include "glfw3.h"
+#include "../vendor/stb_image.h" 
+#define STB_IMAGE_IMPLEMENTATION
+#include "../vendor/glew.h"
+#include "../vendor/glfw3.h"
 #include "../Logger/Tira3DLogging.h"
 #include <iostream>
 #include <string>

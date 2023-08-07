@@ -174,10 +174,12 @@
     <ClCompile Include="src\World\World.cpp" />
     <ClCompile Include="src\Renderer\RenderObjects\VertexBuffer.cpp" />
     <ClCompile Include="src\Renderer\RenderObjects\VAO.cpp" />
+    <ClCompile Include="src\Renderer\Textures\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Renderer\RenderObjects\IndexBuffer.h" />
     <ClInclude Include="src\Renderer\RenderObjects\VertexBufferLayout.h" />
+    <ClInclude Include="src\vendor\stb_image.h" />
     <ClInclude Include="src\WorldObjects\ObjectAttributes.h" />
     <ClInclude Include="src\WorldObjects\Templates\Cube.h" />
     <ClInclude Include="src\Files\FileUtilities.h" />
@@ -190,9 +192,13 @@
     <ClInclude Include="src\World\World.h" />
     <ClInclude Include="src\Renderer\RenderObjects\VertexBuffer.h" />
     <ClInclude Include="src\Renderer\RenderObjects\VAO.h" />
+    <ClInclude Include="src\Renderer\Textures\Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\Basic.kliveshader" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\textures\TestTex.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
