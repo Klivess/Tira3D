@@ -12,18 +12,18 @@
 #include "Textures/Texture.h"
 #include "../World/Camera.h"
 
-
 class Tira3DRendering {
 public:
 	bool WindowInstantiated = false;
 	bool* WindowClosed;
 	GLFWwindow* currentWindow;
+	Tira3D* tira3D;
 	int WindowHeight;
 	int WindowWidth;
-	Camera camera;
 
 	Tira3DRendering();
 
+	Camera& GetAttachedCamera();
 	void CreateRender(int width, int height, const char* title, GLFWmonitor* monitor);
 	void Clear();
 	void Draw(const VAO& VAO, const Shader& shader) const;

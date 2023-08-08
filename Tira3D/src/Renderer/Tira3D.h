@@ -14,14 +14,15 @@
 class Tira3D
 {
 public:
+	Camera* AttachedCamera = nullptr;
+
 	Tira3D();
 	bool UserClosedWindow;
 
 	void InstantiateWindow(int width, int height, const char* title, GLFWmonitor* monitor);
-	void CreateTriangle();
 	void WaitUntilUserClosedWindow();
 
-	WorldObject CreateWorldObject(TiraObjects object, WorldPosition position, WorldScale scale);
+	Camera* CreateCamera(WorldPosition position, WorldRotation rotation, float FOV = 90);
 private:
 
 	Tira3DRendering renderThreadClass;

@@ -161,6 +161,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Input\TiraInput.cpp" />
     <ClCompile Include="src\World\Camera.cpp" />
     <ClCompile Include="src\Renderer\RenderObjects\IndexBuffer.cpp" />
     <ClCompile Include="src\Renderer\RenderObjects\VertexBufferLayout.cpp" />
@@ -179,6 +180,7 @@
     <ClCompile Include="src\Maths\TiraMath.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Input\TiraInput.h" />
     <ClInclude Include="src\World\Camera.h" />
     <ClInclude Include="src\Renderer\RenderObjects\IndexBuffer.h" />
     <ClInclude Include="src\Renderer\RenderObjects\VertexBufferLayout.h" />

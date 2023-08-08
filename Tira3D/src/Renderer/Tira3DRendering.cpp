@@ -1,4 +1,5 @@
 #include "Tira3DRendering.h"
+#include "Tira3D.h"
 #include <future>
 #include <optional>
 #include <math.h>
@@ -54,12 +55,17 @@ Tira3DRendering::Tira3DRendering()
 void Tira3DRendering::ProcessInput(GLFWwindow* window)
 {
 	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+	auto pos = TiraMath::ConvertWorldPositionToVec3(GetAttachedCamera().transform.worldPosition);
 	const float cameraSpeed = 0.05f; // adjust accordingly
-	glm::vec3 cameraPos = TiraMath::ConvertWorldPositionToVec3(camera.transform.worldPosition);
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		cameraPos += cameraSpeed * cameraFront;
+		GetAttachedCamera().transform.worldPosition = TiraMath::ConvertVec3ToWorldPosition(pos = pos + (cameraSpeed * cameraFront));
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		cameraPos -= cameraSpeed * cameraFront;
+		GetAttachedCamera().transform.worldPosition = TiraMath::ConvertVec3ToWorldPosition(pos = pos - (cameraSpeed * cameraFront));
+}
+
+Camera& Tira3DRendering::GetAttachedCamera()
+{
+	return  &(tira3DAttachedCamera);
 }
 
 void Tira3DRendering::CreateRender(int width, int height, const char* title, GLFWmonitor* monitor) {
@@ -152,26 +158,10 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 	tex.Bind();
 	shader.SetUniform1i("u_Texture", 0);
 
-	camera.SetFieldOfView(45);
-	float fov = camera.GetFieldOfView();
-
-
 	glm::mat4 transform = TiraMath::CreateTransformationMatrix();
-
-	glm::mat4 proj = glm::perspective(glm::radians(camera.GetFieldOfView()), (float)WindowWidth / (float)WindowHeight, 0.1f, 100.0f);
+	glm::mat4 model = TiraMath::CreateTransformationMatrix();
 	glm::mat4 view = TiraMath::CreateTransformationMatrix();
-	camera.transform.worldPosition = WorldPosition(0, 0, -5);
-
-	glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
-	glm::vec3 cameraDirection = glm::normalize(TiraMath::ConvertWorldPositionToVec3(camera.transform.worldPosition) - cameraTarget);
-	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
-	glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
-	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-
-	view = glm::translate(view, TiraMath::ConvertWorldPositionToVec3(camera.transform.worldPosition));
-
-	transform = proj * view * transform;
+	GetAttachedCamera().transform.worldPosition = WorldPosition(0, 0, -5);
 
 	while (!glfwWindowShouldClose(currentWindow))
 	{
@@ -182,10 +172,14 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 		// Render here
 		Clear();
 		Draw(vao, shader);
-		TiraMath::RotateTransformX(transform, -0.5);
-		TiraMath::RotateTransformY(transform, -0.5);
-		TiraMath::RotateTransformZ(transform, -0.5);
-		shader.SetUniformMatrix4fv("transform", transform);
+		TiraMath::RotateTransformX(model, -0.2);
+		TiraMath::RotateTransformY(model, -0.2);
+		TiraMath::RotateTransformZ(model, -0.2);
+		glm::mat4 proj = glm::perspective(glm::radians(GetAttachedCamera().GetFieldOfView()), (float)WindowWidth / (float)WindowHeight, 0.1f, 100.0f);
+		view = glm::translate(view, TiraMath::ConvertWorldPositionToVec3(GetAttachedCamera().transform.worldPosition));
+
+		///camera.transform.worldPosition.MoveRight(0.01);
+		shader.SetModelViewProjection(model, view, proj);
 
 		glfwGetFramebufferSize(currentWindow, &WindowWidth, &WindowHeight);
 		glfwPollEvents();

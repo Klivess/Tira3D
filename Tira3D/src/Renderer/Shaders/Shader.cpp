@@ -119,6 +119,12 @@ void Shader::SetUniform1f(const std::string& name, float value)
 {
 	GLCall(glUniform1f(GetUniformLocation(name), value));
 }
+void Shader::SetModelViewProjection(glm::mat4 model, glm::mat4 view, glm::mat4 projection)
+{
+	SetUniformMatrix4fv("u_Model", model);
+	SetUniformMatrix4fv("u_View", view);
+	SetUniformMatrix4fv("u_Projection", projection);
+}
 void Shader::SetUniformMatrix4fv(const std::string& name, glm::mat4 matrix) {
 	GLCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(matrix)));
 }

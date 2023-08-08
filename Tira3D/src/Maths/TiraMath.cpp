@@ -10,24 +10,64 @@ glm::vec3 TiraMath::ConvertWorldPositionToVec3(WorldPosition position)
 	return glm::vec3(position.x, position.y, position.z);
 }
 
+glm::vec3 TiraMath::ConvertWorldRotationToVec3(WorldRotation rotation)
+{
+	return glm::vec3(rotation.x, rotation.y, rotation.z);
+}
+
 glm::vec3 TiraMath::ConvertWorldScaleToVec3(WorldScale scale)
 {
 	return glm::vec3(scale.x, scale.y, scale.z);
 }
 
-void TiraMath::RotateTransformX(glm::mat4& rotation, float degrees)
+void TiraMath::RotateTransformX(glm::mat4& transform, float degrees)
 {
-	RotateTransform(rotation, degrees, glm::vec3(1.0, 0.0, 0.0));
+	RotateTransform(transform, degrees, glm::vec3(1.0, 0.0, 0.0));
 }
 
-void TiraMath::RotateTransformY(glm::mat4& rotation, float degrees)
+void TiraMath::RotateTransformY(glm::mat4& transform, float degrees)
 {
-	RotateTransform(rotation, degrees, glm::vec3(0.0, 1.0, 0.0));
+	RotateTransform(transform, degrees, glm::vec3(0.0, 1.0, 0.0));
 }
 
-void TiraMath::RotateTransformZ(glm::mat4& rotation, float degrees)
+void TiraMath::RotateTransformZ(glm::mat4& transform, float degrees)
 {
-	RotateTransform(rotation, degrees, glm::vec3(0.0, 0.0, 1.0));
+	RotateTransform(transform, degrees, glm::vec3(0.0, 0.0, 1.0));
+}
+
+void TiraMath::TranslateTransformX(glm::mat4& transform, float x)
+{
+	TranslateTransform(transform, glm::vec3(x, 0, 0));
+}
+
+void TiraMath::TranslateTransformY(glm::mat4& transform, float y)
+{
+	TranslateTransform(transform, glm::vec3(0, y, 0));
+}
+
+void TiraMath::TranslateTransformZ(glm::mat4& transform, float z)
+{
+	TranslateTransform(transform, glm::vec3(0, 0, z));
+}
+
+void TiraMath::ScaleTransformX(glm::mat4& transform, float x)
+{
+	ScaleTransform(transform, glm::vec3(x, 0, 0));
+}
+
+void TiraMath::ScaleTransformY(glm::mat4& transform, float y)
+{
+	ScaleTransform(transform, glm::vec3(0, y, 0));
+}
+
+void TiraMath::ScaleTransformZ(glm::mat4& transform, float z)
+{
+	ScaleTransform(transform, glm::vec3(0, 0, z));
+}
+
+void TiraMath::ScaleTransformByScalar(glm::mat4& transform, float scalar)
+{
+	ScaleTransform(transform, glm::vec3(scalar, scalar, scalar));
 }
 
 void TiraMath::RotateTransform(glm::mat4& transform, float degrees, glm::vec3 axis)
@@ -35,4 +75,27 @@ void TiraMath::RotateTransform(glm::mat4& transform, float degrees, glm::vec3 ax
 	transform = glm::rotate(transform, glm::radians(degrees), axis);
 }
 
+WorldPosition TiraMath::ConvertVec3ToWorldPosition(glm::vec3 position)
+{
+	return WorldPosition(position.x, position.y, position.z);
+}
 
+WorldPosition TiraMath::ConvertVec3ToWorldRotation(glm::vec3 rotation)
+{
+	return WorldPosition(rotation.x, rotation.y, rotation.z);
+}
+
+WorldScale TiraMath::ConvertVec3ToWorldScale(glm::vec3 scale)
+{
+	return WorldScale(scale.x, scale.y, scale.z);
+}
+
+void TiraMath::ScaleTransform(glm::mat4& transform, glm::vec3 scale)
+{
+	transform = glm::scale(transform, scale);
+}
+
+void TiraMath::TranslateTransform(glm::mat4& transform, glm::vec3 translation)
+{
+	transform = glm::translate(transform, translation);
+}

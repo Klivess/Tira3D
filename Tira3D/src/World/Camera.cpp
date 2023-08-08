@@ -15,6 +15,16 @@ Camera::~Camera()
 {
 }
 
+void Camera::SetMovementKeys(TiraKey forward, TiraKey backward, TiraKey right, TiraKey left, TiraKey up, TiraKey down)
+{
+	CameraControlKeys.forward = forward;
+	CameraControlKeys.backward = backward;
+	CameraControlKeys.right = right;
+	CameraControlKeys.left = left;
+	CameraControlKeys.up = up;
+	CameraControlKeys.down = down;
+}
+
 float Camera::GetFieldOfView()
 {
 	return FieldOfView;

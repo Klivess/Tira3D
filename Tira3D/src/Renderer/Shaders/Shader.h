@@ -44,5 +44,6 @@ public:
 	void SetUniform1f(const std::string& name, float value);
 	void SetUniform4f(const std::string& name, float v0, float v1, float f2, float f3);
 	void SetUniformMatrix4fv(const std::string& name, glm::mat4 matrix);
+	void SetModelViewProjection(glm::mat4 model, glm::mat4 view, glm::mat4 projection);
 };
 

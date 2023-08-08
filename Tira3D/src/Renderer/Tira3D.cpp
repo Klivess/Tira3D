@@ -20,10 +20,8 @@ void Tira3D::WaitUntilUserClosedWindow() {
 	return;
 }
 
-WorldObject Tira3D::CreateWorldObject(TiraObjects object, WorldPosition position, WorldScale scale)
+Camera* Tira3D::CreateCamera(WorldPosition position, WorldRotation rotation, float FOV)
 {
-	WorldObject worldObj(&renderThreadClass);
-	worldObj.currentWorldTransform.worldPosition = position;
-	worldObj.currentWorldTransform.worldScale = scale;
-	return worldObj;
+	AttachedCamera = Camera(position, rotation, FOV);
+	return AttachedCamera;
 }
