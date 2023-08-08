@@ -54,20 +54,47 @@ Tira3DRendering::Tira3DRendering()
 
 void Tira3DRendering::ProcessInput(GLFWwindow* window)
 {
-	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-	auto pos = TiraMath::ConvertWorldPositionToVec3(GetAttachedCamera().transform.worldPosition);
+	auto pos = TiraMath::ConvertWorldPositionToVec3(GetAttachedCamera()->transform.worldPosition);
 	const float cameraSpeed = 0.05f; // adjust accordingly
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		GetAttachedCamera().transform.worldPosition = TiraMath::ConvertVec3ToWorldPosition(pos = pos + (cameraSpeed * cameraFront));
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		GetAttachedCamera().transform.worldPosition = TiraMath::ConvertVec3ToWorldPosition(pos = pos - (cameraSpeed * cameraFront));
+	if (glfwGetKey(window, GetAttachedCamera()->CameraControlKeys.forward) == GLFW_PRESS) {
+		GetAttachedCamera()->transform.worldPosition = TiraMath::ConvertVec3ToWorldPosition(pos = pos + (cameraSpeed * GetAttachedCamera()->cameraRender.cameraFront));
+	}
+	if (glfwGetKey(window, GetAttachedCamera()->CameraControlKeys.backward) == GLFW_PRESS) {
+		GetAttachedCamera()->transform.worldPosition = TiraMath::ConvertVec3ToWorldPosition(pos = pos - (cameraSpeed * GetAttachedCamera()->cameraRender.cameraFront));
+	}
+	if (glfwGetKey(window, GetAttachedCamera()->CameraControlKeys.left) == GLFW_PRESS) {
+		GetAttachedCamera()->transform.worldPosition = TiraMath::ConvertVec3ToWorldPosition(pos -= glm::normalize(glm::cross(GetAttachedCamera()->cameraRender.cameraFront, GetAttachedCamera()->cameraRender.cameraUp)) * cameraSpeed);
+	}
+	if (glfwGetKey(window, GetAttachedCamera()->CameraControlKeys.right) == GLFW_PRESS) {
+		GetAttachedCamera()->transform.worldPosition = TiraMath::ConvertVec3ToWorldPosition(pos += glm::normalize(glm::cross(GetAttachedCamera()->cameraRender.cameraFront, GetAttachedCamera()->cameraRender.cameraUp)) * cameraSpeed);
+	}
+	if (glfwGetKey(window, GetAttachedCamera()->CameraControlKeys.up) == GLFW_PRESS) {
+		GetAttachedCamera()->transform.worldPosition = TiraMath::ConvertVec3ToWorldPosition(pos = pos + (cameraSpeed * GetAttachedCamera()->cameraRender.cameraUp));
+	}
+	if (glfwGetKey(window, GetAttachedCamera()->CameraControlKeys.down) == GLFW_PRESS) {
+		GetAttachedCamera()->transform.worldPosition = TiraMath::ConvertVec3ToWorldPosition(pos = pos - (cameraSpeed * GetAttachedCamera()->cameraRender.cameraUp));
+	}
 }
 
-Camera& Tira3DRendering::GetAttachedCamera()
+void Tira3DRendering::MouseInput(GLFWwindow* window, double xpos, double ypos)
 {
-	return  &(tira3DAttachedCamera);
 }
 
+void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+	Tira3DRendering* app = static_cast<Tira3DRendering*>(glfwGetWindowUserPointer(window));
+	app->currentCamera->cameraRender.CameraMouseCallback(window, xpos, ypos);
+}
+
+
+Camera* Tira3DRendering::GetAttachedCamera()
+{
+	if (currentCamera == nullptr) {
+		return new Camera(WorldPosition(0, 0, 0), WorldRotation(0, 0, 0), 90, &WindowWidth, &WindowHeight, 0.1);
+	}
+	else {
+		return currentCamera;
+	}
+}
 void Tira3DRendering::CreateRender(int width, int height, const char* title, GLFWmonitor* monitor) {
 	WindowHeight = height;
 	WindowWidth = width;
@@ -80,10 +107,13 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 	}
 	glfwMakeContextCurrent(Tira3DRendering::currentWindow);
 	glfwSwapInterval(1);
+	glfwSetInputMode(currentWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	GLCall(glEnable(GL_MULTISAMPLE));
 	GLCall(glEnable(GL_BLEND));
 	GLCall(glEnable(GL_DEPTH_TEST));
 	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+	// Pass 'this' as user data to the callback
+	glfwSetWindowUserPointer(currentWindow, this);
 	//Initialise GLEW
 	GLenum err = glewInit();
 	if (err != GLEW_OK)
@@ -161,22 +191,39 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 	glm::mat4 transform = TiraMath::CreateTransformationMatrix();
 	glm::mat4 model = TiraMath::CreateTransformationMatrix();
 	glm::mat4 view = TiraMath::CreateTransformationMatrix();
-	GetAttachedCamera().transform.worldPosition = WorldPosition(0, 0, -5);
+	GetAttachedCamera()->transform.worldPosition = WorldPosition(-5, 5, 5);
+
+
+	//TiraMath::ScaleTransformZ(model, 10);
 
 	while (!glfwWindowShouldClose(currentWindow))
 	{
+		auto currentcamera = GetAttachedCamera();
+
+		float currentFrame = static_cast<float>(glfwGetTime());
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+
 		glfwSwapBuffers(currentWindow);
 
 		ProcessInput(currentWindow);
+		glfwSetCursorPosCallback(currentWindow, mouse_callback);
+		TiraMath::ScaleTransformZ(model, 1.0);
+
+		//matrices
+		glm::mat4 proj = currentcamera->cameraRender.CalculateProjectionMatrix();
+		glm::mat4 view = currentcamera->cameraRender.CalculateViewMatrix();
+
+
+		Tira3DLogging::LogToConsole("I am at x:" + std::to_string(currentcamera->transform.worldPosition.x)
+			+ " y: " + std::to_string(currentcamera->transform.worldPosition.y)
+			+ " z: " + std::to_string(currentcamera->transform.worldPosition.z));
 
 		// Render here
 		Clear();
-		Draw(vao, shader);
-		TiraMath::RotateTransformX(model, -0.2);
-		TiraMath::RotateTransformY(model, -0.2);
-		TiraMath::RotateTransformZ(model, -0.2);
-		glm::mat4 proj = glm::perspective(glm::radians(GetAttachedCamera().GetFieldOfView()), (float)WindowWidth / (float)WindowHeight, 0.1f, 100.0f);
-		view = glm::translate(view, TiraMath::ConvertWorldPositionToVec3(GetAttachedCamera().transform.worldPosition));
+		for (unsigned int i = 0; i < activeVAOs.size(); i++) {
+			Draw(activeVAOs[i], shader);
+		}
 
 		///camera.transform.worldPosition.MoveRight(0.01);
 		shader.SetModelViewProjection(model, view, proj);

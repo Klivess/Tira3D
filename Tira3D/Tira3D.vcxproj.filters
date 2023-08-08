@@ -60,10 +60,13 @@
     <ClCompile Include="src\Maths\TiraMath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\World\Camera.cpp">
+    <ClCompile Include="src\World\Camera\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Input\TiraInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\Camera\CameraRender.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,10 +122,13 @@
     <ClInclude Include="src\Maths\TiraMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\World\Camera.h">
+    <ClInclude Include="src\World\Camera\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Input\TiraInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\Camera\CameraRender.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

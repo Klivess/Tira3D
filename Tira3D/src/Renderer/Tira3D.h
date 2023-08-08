@@ -6,10 +6,10 @@
 #include "../Logger/Tira3DLogging.h"
 #include <iostream>
 #include <string>
-#include "Tira3DRendering.h"
 #include <thread>
 #include <vector>
 #include "../WorldObjects/WorldObject.h"
+#include <optional>
 
 class Tira3D
 {
@@ -17,14 +17,14 @@ public:
 	Camera* AttachedCamera = nullptr;
 
 	Tira3D();
+	~Tira3D();
 	bool UserClosedWindow;
+	bool WindowIsCreated;
 
 	void InstantiateWindow(int width, int height, const char* title, GLFWmonitor* monitor);
 	void WaitUntilUserClosedWindow();
 
-	Camera* CreateCamera(WorldPosition position, WorldRotation rotation, float FOV = 90);
-private:
-
+	Camera* CreateCamera(WorldPosition position, WorldRotation rotation, float sensitivity = 0.1f, float FOV = 90);
 	Tira3DRendering renderThreadClass;
 	std::thread renderThread;
 };
