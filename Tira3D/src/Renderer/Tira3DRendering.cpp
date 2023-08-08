@@ -2,6 +2,8 @@
 #include <future>
 #include <optional>
 #include <math.h>
+#include "../Maths/TiraMath.h"
+
 //GLFW Error Callback
 void Tira3DRendering::GLFWError_Callback(int error, const char* description) {
 	Tira3DLogging::LogToConsole("GLFW Error: " + (std::string)description);
@@ -11,6 +13,7 @@ void Tira3DRendering::GLFWError_Callback(int error, const char* description) {
 void Tira3DRendering::Window_FrameBuffer_Size_Callback(GLFWwindow* window, int width, int height) {
 	GLCall(glViewport(0, 0, width, height));
 }
+
 bool Tira3DRendering::InitialiseRender() {
 	//Initialise GLFW
 	auto result = glfwInit();
@@ -44,7 +47,24 @@ void Tira3DRendering::RemoveShaderFromProgram(unsigned int shader) {
 }
 */
 
+Tira3DRendering::Tira3DRendering()
+{
+}
+
+void Tira3DRendering::ProcessInput(GLFWwindow* window)
+{
+	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+	const float cameraSpeed = 0.05f; // adjust accordingly
+	glm::vec3 cameraPos = TiraMath::ConvertWorldPositionToVec3(camera.transform.worldPosition);
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		cameraPos += cameraSpeed * cameraFront;
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		cameraPos -= cameraSpeed * cameraFront;
+}
+
 void Tira3DRendering::CreateRender(int width, int height, const char* title, GLFWmonitor* monitor) {
+	WindowHeight = height;
+	WindowWidth = width;
 	InitialiseRender();
 	Tira3DRendering::currentWindow = glfwCreateWindow(width, height, title, monitor, NULL);
 	*WindowClosed = false;
@@ -56,6 +76,7 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 	glfwSwapInterval(1);
 	GLCall(glEnable(GL_MULTISAMPLE));
 	GLCall(glEnable(GL_BLEND));
+	GLCall(glEnable(GL_DEPTH_TEST));
 	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 	//Initialise GLEW
 	GLenum err = glewInit();
@@ -65,19 +86,59 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 		throw ("Couldn't initialise GLEW: " + (const char)glewGetErrorString(err));
 	}
 	WindowInstantiated = true;
-	glfwSetFramebufferSizeCallback(Tira3DRendering::currentWindow, Tira3DRendering::Window_FrameBuffer_Size_Callback);
+	glfwSetFramebufferSizeCallback(Tira3DRendering::currentWindow, Window_FrameBuffer_Size_Callback);
 
 
 	float vertices[] = {
-		-0.5f, -0.5f, 0.0f, -0.5f, -0.5f, //0
-		 0.5,  -0.5f, 0.0f,  0.5,  -0.5f,//1
-		 0.5f, 0.5f, 0.0f, 0.5f, 0.5f, //2
+		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 	};
 
 	VAO vao = CreateVAO();
 	VertexBuffer vb = CreateVertexBuffer(vertices, sizeof(vertices));
 	VertexBufferLayout vbLayout;
+	//vertices layout
 	vbLayout.Push<float>(3);
+	//texture layout
 	vbLayout.Push<float>(2);
 	vao.AddBuffer(vb, vbLayout);
 	vao.Bind();
@@ -91,14 +152,42 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 	tex.Bind();
 	shader.SetUniform1i("u_Texture", 0);
 
+	camera.SetFieldOfView(45);
+	float fov = camera.GetFieldOfView();
+
+
+	glm::mat4 transform = TiraMath::CreateTransformationMatrix();
+
+	glm::mat4 proj = glm::perspective(glm::radians(camera.GetFieldOfView()), (float)WindowWidth / (float)WindowHeight, 0.1f, 100.0f);
+	glm::mat4 view = TiraMath::CreateTransformationMatrix();
+	camera.transform.worldPosition = WorldPosition(0, 0, -5);
+
+	glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec3 cameraDirection = glm::normalize(TiraMath::ConvertWorldPositionToVec3(camera.transform.worldPosition) - cameraTarget);
+	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
+	glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
+	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+
+	view = glm::translate(view, TiraMath::ConvertWorldPositionToVec3(camera.transform.worldPosition));
+
+	transform = proj * view * transform;
+
 	while (!glfwWindowShouldClose(currentWindow))
 	{
 		glfwSwapBuffers(currentWindow);
 
+		ProcessInput(currentWindow);
+
 		// Render here
 		Clear();
 		Draw(vao, shader);
+		TiraMath::RotateTransformX(transform, -0.5);
+		TiraMath::RotateTransformY(transform, -0.5);
+		TiraMath::RotateTransformZ(transform, -0.5);
+		shader.SetUniformMatrix4fv("transform", transform);
 
+		glfwGetFramebufferSize(currentWindow, &WindowWidth, &WindowHeight);
 		glfwPollEvents();
 	}
 	//When window/application closes
@@ -107,12 +196,13 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 
 void Tira3DRendering::Clear()
 {
-	GLCall(glClear(GL_COLOR_BUFFER_BIT));
+	GLCall(glClearColor(0, 0.7, 0.7, 0.7));
+	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 }
 
 void Tira3DRendering::Draw(const VAO& vao, const Shader& shader) const
 {
 	shader.Bind();
 	vao.Bind();
-	GLCall(glDrawArrays(GL_TRIANGLES, 0, 6));
+	GLCall(glDrawArrays(GL_TRIANGLES, 0, 36));
 }

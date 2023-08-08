@@ -10,17 +10,27 @@
 #include "RenderObjects/VertexBuffer.h"
 #include "RenderObjects/VAO.h"
 #include "Textures/Texture.h"
+#include "../World/Camera.h"
+
 
 class Tira3DRendering {
 public:
 	bool WindowInstantiated = false;
 	bool* WindowClosed;
 	GLFWwindow* currentWindow;
+	int WindowHeight;
+	int WindowWidth;
+	Camera camera;
+
+	Tira3DRendering();
 
 	void CreateRender(int width, int height, const char* title, GLFWmonitor* monitor);
 	void Clear();
 	void Draw(const VAO& VAO, const Shader& shader) const;
 private:
+
+	void ProcessInput(GLFWwindow* window);
+
 	std::vector<unsigned int> shadersInUse = {};
 
 	//Q: Is using std::vector a good idea to keep buffers in scope?

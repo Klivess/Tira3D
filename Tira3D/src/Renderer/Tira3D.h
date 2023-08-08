@@ -14,15 +14,16 @@
 class Tira3D
 {
 public:
+	Tira3D();
 	bool UserClosedWindow;
 
-	bool Initialize();
 	void InstantiateWindow(int width, int height, const char* title, GLFWmonitor* monitor);
 	void CreateTriangle();
 	void WaitUntilUserClosedWindow();
 
 	WorldObject CreateWorldObject(TiraObjects object, WorldPosition position, WorldScale scale);
 private:
+
 	Tira3DRendering renderThreadClass;
 	std::thread renderThread;
 };

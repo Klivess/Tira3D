@@ -1,4 +1,7 @@
 #include "Tira3D.h"
+Tira3D::Tira3D()
+{
+}
 //Instantiate a window
 //OpenGL is a 'state machine' type library which only runs on one thread, so this code will open up a new thread for OpenGL draw calls.
 void Tira3D::InstantiateWindow(int width, int height, const char* title, GLFWmonitor* monitor) {
@@ -20,7 +23,7 @@ void Tira3D::WaitUntilUserClosedWindow() {
 WorldObject Tira3D::CreateWorldObject(TiraObjects object, WorldPosition position, WorldScale scale)
 {
 	WorldObject worldObj(&renderThreadClass);
-	worldObj.currentWorldTransform.position = position;
-	worldObj.currentWorldTransform.scale = scale;
+	worldObj.currentWorldTransform.worldPosition = position;
+	worldObj.currentWorldTransform.worldScale = scale;
 	return worldObj;
 }

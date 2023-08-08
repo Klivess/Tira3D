@@ -9,6 +9,11 @@ void Tira3DLogging::LogToConsole(std::string string) {
 	std::cout << string << std::endl;
 }
 
+void Tira3DLogging::LogToConsole(int num)
+{
+	LogToConsole(std::to_string(num));
+}
+
 //Translates common error codes to error words
 //Better than memorizing the number that comes up
 std::string TryGetErrorMessage(unsigned int err) {

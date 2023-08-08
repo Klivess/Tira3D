@@ -6,6 +6,10 @@
 #include "../../vendor/glew.h"
 #include "../../vendor/glfw3.h"
 #include <unordered_map>
+#include "../../vendor/glm/glm.hpp"
+#include "../../vendor/glm/gtc/matrix_transform.hpp"
+#include "../../vendor/glm/gtc/type_ptr.hpp"
+
 
 struct ShaderProgramSource {
 	std::string VertexSource;
@@ -39,5 +43,6 @@ public:
 	void SetUniform1i(const std::string& name, int value);
 	void SetUniform1f(const std::string& name, float value);
 	void SetUniform4f(const std::string& name, float v0, float v1, float f2, float f3);
+	void SetUniformMatrix4fv(const std::string& name, glm::mat4 matrix);
 };
 

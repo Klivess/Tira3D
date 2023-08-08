@@ -161,6 +161,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\World\Camera.cpp" />
     <ClCompile Include="src\Renderer\RenderObjects\IndexBuffer.cpp" />
     <ClCompile Include="src\Renderer\RenderObjects\VertexBufferLayout.cpp" />
     <ClCompile Include="src\WorldObjects\ObjectAttributes.cpp" />
@@ -175,8 +176,10 @@
     <ClCompile Include="src\Renderer\RenderObjects\VertexBuffer.cpp" />
     <ClCompile Include="src\Renderer\RenderObjects\VAO.cpp" />
     <ClCompile Include="src\Renderer\Textures\Texture.cpp" />
+    <ClCompile Include="src\Maths\TiraMath.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\World\Camera.h" />
     <ClInclude Include="src\Renderer\RenderObjects\IndexBuffer.h" />
     <ClInclude Include="src\Renderer\RenderObjects\VertexBufferLayout.h" />
     <ClInclude Include="src\vendor\stb_image.h" />
@@ -193,12 +196,14 @@
     <ClInclude Include="src\Renderer\RenderObjects\VertexBuffer.h" />
     <ClInclude Include="src\Renderer\RenderObjects\VAO.h" />
     <ClInclude Include="src\Renderer\Textures\Texture.h" />
+    <ClInclude Include="src\Maths\TiraMath.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\Basic.kliveshader" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\textures\TestTex.png" />
+    <Image Include="resources\textures\TestTex3.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

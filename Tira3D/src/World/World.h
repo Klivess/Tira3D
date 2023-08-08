@@ -2,12 +2,27 @@
 
 class WorldPosition {
 public:
-	WorldPosition CreateWorldPosition(float x, float y, float z) {
-		this->x = x;
-		this->y = y;
-		this->z = z;
-		return *this;
+	WorldPosition() {
+		x = 0;
+		y = 0;
+		z = 0;
 	}
+	WorldPosition(float X, float Y, float Z) :
+		x(X), y(Y), z(Z) {}
+	float x;
+	float y;
+	float z;
+};
+
+class WorldRotation {
+public:
+	WorldRotation() {
+		x = 0;
+		y = 0;
+		z = 0;
+	}
+	WorldRotation(float X, float Y, float Z) :
+		x(X), y(Y), z(Z) {}
 	float x;
 	float y;
 	float z;
@@ -15,25 +30,30 @@ public:
 
 class WorldScale {
 public:
-	WorldScale CreateWorldScale(float x, float y, float z) {
-		this->x=x;
-		this->y=y;
-		this->z=z;
-		return *this;
+	WorldScale() {
+		x = 0;
+		y = 0;
+		z = 0;
 	}
-	float x = 1;
-	float y = 1;
-	float z = 1;
+	WorldScale(float X, float Y, float Z) :
+		x(X), y(Y), z(Z) {}
+	float x;
+	float y;
+	float z;
 };
 
 class WorldTransform {
 public:
-	WorldTransform CreateTransform(WorldPosition position, WorldScale scale) {
-		this->position.x = position.x;
-		this->scale.x = scale.x;
+	WorldTransform() {
+		worldPosition = WorldPosition(0, 0, 0);
+		worldScale = WorldScale(1, 1, 1);
+
 	}
-	WorldPosition position;
-	WorldScale scale;
+	WorldTransform(WorldPosition position, WorldRotation Rotation, WorldScale scale) :
+		worldPosition(position), worldScale(scale), worldRotation(Rotation) {}
+	WorldPosition worldPosition;
+	WorldRotation worldRotation;
+	WorldScale worldScale;
 };
 
 class World
