@@ -14,7 +14,7 @@
 class Tira3D
 {
 public:
-	Camera* AttachedCamera = nullptr;
+	Camera* AttachedCamera;
 
 	Tira3D();
 	~Tira3D();
@@ -24,8 +24,13 @@ public:
 	void InstantiateWindow(int width, int height, const char* title, GLFWmonitor* monitor);
 	void WaitUntilUserClosedWindow();
 
-	Camera* CreateCamera(WorldPosition position, WorldRotation rotation, float sensitivity = 0.1f, float FOV = 90);
+	TiraInput& Inputs();
+
+	Camera& CreateCamera(WorldPosition position, WorldRotation rotation, float sensitivity = 0.1f, float FOV = 90);
+
 	Tira3DRendering renderThreadClass;
 	std::thread renderThread;
+private:
+	TiraInput tiraInput;
 };
 

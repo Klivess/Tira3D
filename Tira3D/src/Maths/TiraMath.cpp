@@ -80,9 +80,9 @@ WorldPosition TiraMath::ConvertVec3ToWorldPosition(glm::vec3 position)
 	return WorldPosition(position.x, position.y, position.z);
 }
 
-WorldPosition TiraMath::ConvertVec3ToWorldRotation(glm::vec3 rotation)
+WorldRotation TiraMath::ConvertVec3ToWorldRotation(glm::vec3 rotation)
 {
-	return WorldPosition(rotation.x, rotation.y, rotation.z);
+	return WorldRotation(rotation.x, rotation.y, rotation.z);
 }
 
 WorldScale TiraMath::ConvertVec3ToWorldScale(glm::vec3 scale)

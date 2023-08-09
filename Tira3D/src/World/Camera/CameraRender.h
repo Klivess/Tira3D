@@ -14,8 +14,7 @@ public:
 
 	void CameraMouseCallback(GLFWwindow* window, double xpos, double ypos);
 
-	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+	WorldRotation cameraFront = WorldRotation(0.0f, 0.0f, -1.0f);
 
 private:
 	WorldTransform* cameraTransform;

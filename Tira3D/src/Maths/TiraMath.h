@@ -3,6 +3,9 @@
 #include "../vendor/glm/gtc/type_ptr.hpp"
 #include "../World/World.h"
 
+
+const glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
 #pragma once
 class TiraMath
 {
@@ -13,7 +16,7 @@ public:
 	static glm::vec3 ConvertWorldRotationToVec3(WorldRotation rotation);
 	static glm::vec3 ConvertWorldScaleToVec3(WorldScale scale);
 	static WorldPosition ConvertVec3ToWorldPosition(glm::vec3 position);
-	static WorldPosition ConvertVec3ToWorldRotation(glm::vec3 rotation);
+	static WorldRotation ConvertVec3ToWorldRotation(glm::vec3 rotation);
 	static WorldScale ConvertVec3ToWorldScale(glm::vec3 scale);
 
 	static void RotateTransformX(glm::mat4& transform, float degrees);

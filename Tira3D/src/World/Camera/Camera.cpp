@@ -5,26 +5,22 @@ Camera::Camera(WorldPosition position, WorldRotation rotation, float FOV, int* w
 	m_sensitivity = sensitivity;
 	SetFieldOfView(FOV);
 	cameraRender = CameraRender(&transform, &m_FieldOfView, windowWidth, windowHeight, &m_sensitivity);
+	m_Movement = BasicMovementSystem(&transform, &cameraRender.cameraFront);
 }
 
 Camera::~Camera()
 {
 }
 
-void Camera::SetMovementKeys(TiraKey forward, TiraKey backward, TiraKey right, TiraKey left, TiraKey up, TiraKey down)
-{
-	CameraControlKeys.forward = forward;
-	CameraControlKeys.backward = backward;
-	CameraControlKeys.right = right;
-	CameraControlKeys.left = left;
-	CameraControlKeys.up = up;
-	CameraControlKeys.down = down;
-}
-
 void Camera::LookAtObject(WorldPosition objectLoc)
 {
 	//unfinished
 	auto pos = TiraMath::ConvertWorldPositionToVec3(transform.worldPosition);
+}
+
+BasicMovementSystem& Camera::BasicMovement()
+{
+	return m_Movement;
 }
 
 float Camera::GetFieldOfView()

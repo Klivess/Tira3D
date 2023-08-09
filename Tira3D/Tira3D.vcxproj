@@ -161,6 +161,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Basics\BasicMovement.cpp" />
     <ClCompile Include="src\World\Camera\CameraRender.cpp" />
     <ClCompile Include="src\Input\TiraInput.cpp" />
     <ClCompile Include="src\World\Camera\Camera.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="src\Maths\TiraMath.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Basics\BasicMovement.h" />
     <ClInclude Include="src\World\Camera\CameraRender.h" />
     <ClInclude Include="src\Input\TiraInput.h" />
     <ClInclude Include="src\World\Camera\Camera.h" />

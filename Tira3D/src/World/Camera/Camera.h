@@ -4,33 +4,22 @@
 #include "../../Maths/TiraMath.h"
 #include "../../Input/TiraInput.h"
 #include "CameraRender.h"
+#include "../../Basics/BasicMovement.h"
 
 class Camera
 {
 public:
 	CameraRender cameraRender;
-	struct {
-		TiraKey forward;
-		TiraKey backward;
-		TiraKey right;
-		TiraKey left;
-		TiraKey up;
-		TiraKey down;
-	} CameraControlKeys;
 	WorldTransform transform;
 
 	Camera();
 	Camera(WorldPosition position, WorldRotation rotation, float FOV, int* windowWidth, int* windowHeight, float sensitivity);
 	~Camera();
-	void SetMovementKeys(TiraKey forward,
-		TiraKey backward,
-		TiraKey right,
-		TiraKey left,
-		TiraKey up,
-		TiraKey down);
-
 
 	void LookAtObject(WorldPosition objectLoc);
+
+	BasicMovementSystem& BasicMovement();
+	BasicMovementSystem m_Movement;
 
 	float GetFieldOfView();
 	void SetFieldOfView(float FOV);

@@ -2,10 +2,10 @@
 #include "Tira3DRendering.h"
 Tira3D::Tira3D()
 {
+	tiraInput = TiraInput();
 }
 Tira3D::~Tira3D()
 {
-	delete AttachedCamera;
 }
 //Instantiate a window
 //OpenGL is a 'state machine' type library which only runs on one thread, so this code will open up a new thread for OpenGL draw calls.
@@ -26,11 +26,16 @@ void Tira3D::WaitUntilUserClosedWindow() {
 	return;
 }
 
-Camera* Tira3D::CreateCamera(WorldPosition position, WorldRotation rotation, float sensitivity, float FOV)
+TiraInput& Tira3D::Inputs()
+{
+	return tiraInput;
+}
+
+Camera& Tira3D::CreateCamera(WorldPosition position, WorldRotation rotation, float sensitivity, float FOV)
 {
 	AttachedCamera = new Camera(position, rotation, FOV, &(renderThreadClass.WindowWidth), &(renderThreadClass.WindowHeight), sensitivity);
 	if (WindowIsCreated) {
 		renderThreadClass.currentCamera = AttachedCamera;
 	}
-	return AttachedCamera;
+	return *AttachedCamera;
 }

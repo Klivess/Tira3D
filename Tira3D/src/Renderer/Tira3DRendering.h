@@ -20,6 +20,7 @@ public:
 	int WindowHeight;
 	int WindowWidth;
 	Camera* currentCamera = nullptr;
+	TiraInput* tiraInput = nullptr;
 
 	Tira3DRendering();
 	Camera* GetAttachedCamera();

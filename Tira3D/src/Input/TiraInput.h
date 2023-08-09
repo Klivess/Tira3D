@@ -1,6 +1,10 @@
 #include "../vendor/glfw3.h"
+#include <vector>
 
-
+enum TiraKeyPressType {
+	TIRA_PRESS = 1,
+	TIRA_RELEASE = 0
+};
 enum TiraKey {
 	TIRA_NO_KEY = -1,
 	TIRA_KEY_SPACE = 32,
@@ -125,9 +129,23 @@ enum TiraKey {
 	TIRA_KEY_RIGHT_SUPER = 347,
 };
 
-#pragma once
-class Inputs
-{
+typedef void (tiraInputCallback)(void);
 
+struct RecordedTiraInputs {
+	TiraKey key;
+	tiraInputCallback callbackFunction;
+	TiraKeyPressType triggertype;
+};
+
+#pragma once
+class TiraInput
+{
+public:
+	void RecordInput(TiraKey key, tiraInputCallback callback, TiraKeyPressType pressType = TiraKeyPressType::TIRA_PRESS);
+	void StopRecordingInput(TiraKey key, TiraKeyPressType pressType = TiraKeyPressType::TIRA_PRESS);
+
+	std::vector<RecordedTiraInputs>& GetExistingInputs();
+private:
+	std::vector<RecordedTiraInputs> inputs;
 };
 

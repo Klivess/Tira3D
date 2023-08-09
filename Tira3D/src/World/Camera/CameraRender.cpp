@@ -28,7 +28,7 @@ glm::mat4 CameraRender::CalculateProjectionMatrix()
 glm::mat4 CameraRender::CalculateViewMatrix()
 {
 	auto pos = TiraMath::ConvertWorldPositionToVec3(cameraTransform->worldPosition);
-	glm::mat4 view = glm::lookAt(pos, pos + cameraFront, cameraUp);
+	glm::mat4 view = glm::lookAt(pos, pos + TiraMath::ConvertWorldRotationToVec3(cameraFront), cameraUp);
 	return view;
 }
 
@@ -66,7 +66,7 @@ void CameraRender::CameraMouseCallback(GLFWwindow* window, double xpos, double y
 	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	front.y = sin(glm::radians(pitch));
 	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	cameraFront = glm::normalize(front);
+	cameraFront = TiraMath::ConvertVec3ToWorldRotation(glm::normalize(front));
 
 
 }
