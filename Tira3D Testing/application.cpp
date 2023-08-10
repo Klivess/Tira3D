@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Renderer/Tira3D.h"
+#include <stdlib.h>
 using std::cout;
 using std::endl;
 
@@ -17,6 +18,14 @@ void main() {
 
 		tira.CreateCamera(WorldPosition(0, 0, 3), WorldRotation(0, 0, 0));
 
+		for (int i = 0; i < 1000; i++)
+		{
+			auto& obj = tira.Designer().CreateNewWorldObject("MyCube");
+			obj.SetWorldPosition(WorldPosition(rand() % 100, rand() % 100, rand() % 100));
+			obj.LoadMesh(TiraObjects::Cube);
+		}
+
+		//Moving around
 		tira.Inputs().RecordInput(TiraKey::TIRA_KEY_W, [&]() {
 			tira.AttachedCamera->m_Movement.MoveForward();
 			});
@@ -35,12 +44,6 @@ void main() {
 		tira.Inputs().RecordInput(TiraKey::TIRA_KEY_C, [&]() {
 			tira.AttachedCamera->m_Movement.MoveDown();
 			});
-
-
-		auto& obj = tira.Designer().CreateNewWorldObject("MyCube");
-		obj.SetWorldPosition(WorldPosition(0, 0, -6));
-		obj.SetWorldScale(WorldScale(20, 1, 20));
-		obj.LoadMesh(TiraObjects::Cube);
 
 		tira.WaitUntilUserClosedWindow();
 		delete& tira;

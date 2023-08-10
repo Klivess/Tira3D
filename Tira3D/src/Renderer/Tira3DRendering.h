@@ -24,6 +24,9 @@ public:
 	TiraInput* tiraInput = nullptr;
 	std::vector<WorldObject> allWorldObj;
 
+	WorldObject test1;
+	WorldObject test2;
+
 	WorldObject& CreateNewWorldObject(std::string objectName);
 	Tira3DRendering();
 	Camera* GetAttachedCamera();
