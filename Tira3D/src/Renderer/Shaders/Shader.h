@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -28,6 +29,7 @@ private:
 
 	int GetUniformLocation(const std::string& name);
 public:
+	Shader();
 	Shader(const std::string& filepath)
 		: m_shaderFilepath(filepath), m_RendererID(0)
 	{

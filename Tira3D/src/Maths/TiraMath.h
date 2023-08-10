@@ -31,6 +31,13 @@ public:
 	static void ScaleTransformY(glm::mat4& transform, float y);
 	static void ScaleTransformZ(glm::mat4& transform, float z);
 	static void ScaleTransformByScalar(glm::mat4& transform, float scalar);
+
+	static void TranslateWorldTransformToMatrixTransform(glm::mat4& transform, WorldTransform worldTransform);
+	static void TranslateWorldPositionToMatrixTransform(glm::mat4& transform, WorldPosition position);
+	static void TranslateWorldRotationToMatrixTransform(glm::mat4& transform, WorldRotation rotation);
+	static void TranslateWorldScaleToMatrixTransform(glm::mat4& transform, WorldScale scale);
+
+
 private:
 	static void RotateTransform(glm::mat4& transform, float degrees, glm::vec3 axis);
 	static void TranslateTransform(glm::mat4& transform, glm::vec3 translation);

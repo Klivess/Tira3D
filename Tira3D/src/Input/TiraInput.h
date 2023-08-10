@@ -1,5 +1,6 @@
 #include "../vendor/glfw3.h"
 #include <vector>
+#include <functional>
 
 enum TiraKeyPressType {
 	TIRA_PRESS = 1,
@@ -133,7 +134,7 @@ typedef void (tiraInputCallback)(void);
 
 struct RecordedTiraInputs {
 	TiraKey key;
-	tiraInputCallback callbackFunction;
+	std::function<void()> boundfunction;
 	TiraKeyPressType triggertype;
 };
 
@@ -141,7 +142,9 @@ struct RecordedTiraInputs {
 class TiraInput
 {
 public:
-	void RecordInput(TiraKey key, tiraInputCallback callback, TiraKeyPressType pressType = TiraKeyPressType::TIRA_PRESS);
+	TiraInput();
+
+	void RecordInput(TiraKey key, std::function<void()> function, TiraKeyPressType pressType = TiraKeyPressType::TIRA_PRESS);
 	void StopRecordingInput(TiraKey key, TiraKeyPressType pressType = TiraKeyPressType::TIRA_PRESS);
 
 	std::vector<RecordedTiraInputs>& GetExistingInputs();

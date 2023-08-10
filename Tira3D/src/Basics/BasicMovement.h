@@ -5,7 +5,7 @@ class BasicMovementSystem
 {
 public:
 	BasicMovementSystem() {}
-	BasicMovementSystem(WorldTransform* transformToModify, WorldRotation* frontDirection, float speed = 10);
+	BasicMovementSystem(WorldTransform* transformToModify, WorldRotation* frontDirection, float speed = 0.1);
 
 	void SetMovementSpeed(float speed);
 

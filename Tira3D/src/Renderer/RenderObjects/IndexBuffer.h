@@ -1,8 +1,8 @@
+#pragma once
 #include "../../vendor/glew.h"
 #include "../../vendor/glfw3.h"
 #include "../../Logger/Tira3DLogging.h"
 #include <iostream>
-#pragma once
 
 //Vertex buffer should only be instantiated/constructed on the render thread (current window set to context)
 class IndexBuffer

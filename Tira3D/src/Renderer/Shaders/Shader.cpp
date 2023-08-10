@@ -54,10 +54,6 @@ unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
 		GLCall(glDeleteShader(id));
 		return 0;
 	}
-	else {
-		string dec = (type == GL_VERTEX_SHADER ? "vertex" : "fragment");
-		Tira3DLogging::LogToConsole("Successfully compiled " + dec + " shader.");
-	}
 	return id;
 }
 unsigned int Shader::CreateShader(const std::string& vertexShader, const std::string& fragmentShader) {
@@ -93,6 +89,10 @@ int Shader::GetUniformLocation(const std::string& name)
 Shader::~Shader()
 {
 	GLCall(glDeleteProgram(m_RendererID));
+}
+
+Shader::Shader()
+{
 }
 
 void Shader::Bind() const

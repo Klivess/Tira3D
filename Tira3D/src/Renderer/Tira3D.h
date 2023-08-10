@@ -8,13 +8,17 @@
 #include <string>
 #include <thread>
 #include <vector>
-#include "../WorldObjects/WorldObject.h"
 #include <optional>
+#include "Tira3DRendering.h"
+#include "../World/Designer/TiraDesigner.h"
 
 class Tira3D
 {
 public:
 	Camera* AttachedCamera;
+
+	Tira3DRendering renderThreadClass;
+	std::thread renderThread;
 
 	Tira3D();
 	~Tira3D();
@@ -23,14 +27,11 @@ public:
 
 	void InstantiateWindow(int width, int height, const char* title, GLFWmonitor* monitor);
 	void WaitUntilUserClosedWindow();
-
 	TiraInput& Inputs();
-
+	TiraDesigner& Designer();
 	Camera& CreateCamera(WorldPosition position, WorldRotation rotation, float sensitivity = 0.1f, float FOV = 90);
-
-	Tira3DRendering renderThreadClass;
-	std::thread renderThread;
 private:
 	TiraInput tiraInput;
+	TiraDesigner designer;
 };
 

@@ -39,9 +39,9 @@ public:
 class WorldScale {
 public:
 	WorldScale() {
-		x = 0;
-		y = 0;
-		z = 0;
+		x = 1;
+		y = 1;
+		z = 1;
 	}
 	WorldScale(float X, float Y, float Z) :
 		x(X), y(Y), z(Z) {}

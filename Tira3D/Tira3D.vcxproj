@@ -168,18 +168,20 @@
     <ClCompile Include="src\Renderer\RenderObjects\IndexBuffer.cpp" />
     <ClCompile Include="src\Renderer\RenderObjects\VertexBufferLayout.cpp" />
     <ClCompile Include="src\WorldObjects\ObjectAttributes.cpp" />
-    <ClCompile Include="src\WorldObjects\Templates\Cube.cpp" />
     <ClCompile Include="src\Files\FileUtilities.cpp" />
     <ClCompile Include="src\Renderer\Shaders\Shader.cpp" />
     <ClCompile Include="src\Renderer\Tira3D.cpp" />
     <ClCompile Include="src\Logger\Tira3DLogging.cpp" />
     <ClCompile Include="src\Renderer\Tira3DRendering.cpp" />
     <ClCompile Include="src\WorldObjects\WorldObject.cpp" />
+    <ClCompile Include="src\World\TiraObjects\TiraObjectsTemplates.cpp" />
     <ClCompile Include="src\World\World.cpp" />
     <ClCompile Include="src\Renderer\RenderObjects\VertexBuffer.cpp" />
     <ClCompile Include="src\Renderer\RenderObjects\VAO.cpp" />
     <ClCompile Include="src\Renderer\Textures\Texture.cpp" />
     <ClCompile Include="src\Maths\TiraMath.cpp" />
+    <ClCompile Include="src\World\Designer\TiraDesigner.cpp" />
+    <ClCompile Include="src\Renderer\TiraDossier.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Basics\BasicMovement.h" />
@@ -190,7 +192,6 @@
     <ClInclude Include="src\Renderer\RenderObjects\VertexBufferLayout.h" />
     <ClInclude Include="src\vendor\stb_image.h" />
     <ClInclude Include="src\WorldObjects\ObjectAttributes.h" />
-    <ClInclude Include="src\WorldObjects\Templates\Cube.h" />
     <ClInclude Include="src\Files\FileUtilities.h" />
     <ClInclude Include="src\Renderer\Shaders\Shader.h" />
     <ClInclude Include="src\Renderer\WindowRenderInfo.h" />
@@ -203,9 +204,13 @@
     <ClInclude Include="src\Renderer\RenderObjects\VAO.h" />
     <ClInclude Include="src\Renderer\Textures\Texture.h" />
     <ClInclude Include="src\Maths\TiraMath.h" />
+    <ClInclude Include="src\World\Designer\TiraDesigner.h" />
+    <ClInclude Include="src\World\TiraObjects\TiraObjectsTemplates.h" />
+    <ClInclude Include="src\Renderer\TiraDossier.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\Basic.kliveshader" />
+    <None Include="resources\shaders\Skybox.kliveshader" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\textures\TestTex.png" />

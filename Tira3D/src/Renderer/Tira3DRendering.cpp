@@ -54,16 +54,16 @@ Tira3DRendering::Tira3DRendering()
 
 void Tira3DRendering::ProcessInput(GLFWwindow* window)
 {
-	/*
 	auto& existingInputs = tiraInput->GetExistingInputs();
 
-	for (unsigned int i = 0; i < existingInputs.size(); i++) {
-		auto& input = existingInputs[i];
-		if (glfwGetKey(window, input.key) == input.triggertype) {
-			input.callbackFunction();
+	if (existingInputs.empty() == false) {
+		for (unsigned int i = 0; i < existingInputs.size(); i++) {
+			auto& input = existingInputs[i];
+			if (glfwGetKey(window, input.key) == input.triggertype) {
+				input.boundfunction();
+			}
 		}
 	}
-	*/
 }
 
 void Tira3DRendering::MouseInput(GLFWwindow* window, double xpos, double ypos)
@@ -114,76 +114,6 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 	WindowInstantiated = true;
 	glfwSetFramebufferSizeCallback(Tira3DRendering::currentWindow, Window_FrameBuffer_Size_Callback);
 
-
-	float vertices[] = {
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-		 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-	};
-
-	VAO vao = CreateVAO();
-	VertexBuffer vb = CreateVertexBuffer(vertices, sizeof(vertices));
-	VertexBufferLayout vbLayout;
-	//vertices layout
-	vbLayout.Push<float>(3);
-	//texture layout
-	vbLayout.Push<float>(2);
-	vao.AddBuffer(vb, vbLayout);
-	vao.Bind();
-
-	//Note by Klives: This is absolute, I know. This is a placeholder and if you are contributing to this project feel free to modify this.
-	//Although the shader file is relative to this project, Tira3D Testing does not recognise Tira3D relative paths.
-	Shader shader(R"(C:\Projects\Software\Tira3D\Tira3D\resources\shaders\Basic.kliveshader)");
-	shader.Bind();
-
-	Texture tex(R"(C:\Projects\Software\Tira3D\Tira3D\resources\textures\TestTex3.jpg)");
-	tex.Bind();
-	shader.SetUniform1i("u_Texture", 0);
-
-	glm::mat4 transform = TiraMath::CreateTransformationMatrix();
-	glm::mat4 model = TiraMath::CreateTransformationMatrix();
-	glm::mat4 view = TiraMath::CreateTransformationMatrix();
-	GetAttachedCamera()->transform.worldPosition = WorldPosition(-5, 5, 5);
-
-
 	//TiraMath::ScaleTransformZ(model, 10);
 
 	while (!glfwWindowShouldClose(currentWindow))
@@ -199,10 +129,6 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 		ProcessInput(currentWindow);
 		glfwSetCursorPosCallback(currentWindow, mouse_callback);
 
-		//matrices
-		glm::mat4 proj = currentcamera->cameraRender.CalculateProjectionMatrix();
-		glm::mat4 view = currentcamera->cameraRender.CalculateViewMatrix();
-
 
 		Tira3DLogging::LogToConsole("I am at x:" + std::to_string(currentcamera->transform.worldPosition.x)
 			+ " y: " + std::to_string(currentcamera->transform.worldPosition.y)
@@ -210,12 +136,11 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 
 		// Render here
 		Clear();
-		for (unsigned int i = 0; i < activeVAOs.size(); i++) {
-			Draw(activeVAOs[i], shader);
+		for (unsigned int i = 0; i < allWorldObj.size(); i++) {
+			WorldObject& obj = allWorldObj[i];
+			Draw(obj);
 		}
-
 		///camera.transform.worldPosition.MoveRight(0.01);
-		shader.SetModelViewProjection(model, view, proj);
 
 		glfwGetFramebufferSize(currentWindow, &WindowWidth, &WindowHeight);
 		glfwPollEvents();
@@ -230,9 +155,33 @@ void Tira3DRendering::Clear()
 	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 }
 
-void Tira3DRendering::Draw(const VAO& vao, const Shader& shader) const
+void Tira3DRendering::Draw(WorldObject& obj)
 {
-	shader.Bind();
+	//matrices
+	glm::mat4 proj = currentCamera->cameraRender.CalculateProjectionMatrix();
+	glm::mat4 view = currentCamera->cameraRender.CalculateViewMatrix();
+	glm::mat4 model = TiraMath::CreateTransformationMatrix();
+
+	VAO vao = VAO();
+	VertexBuffer vb = VertexBuffer(obj.GetMeshVerticies().data(), obj.GetMeshVerticies().size() * sizeof(obj.GetMeshVerticies()[0]));
+	vao.AddBuffer(vb, obj.GetVBLayout());
 	vao.Bind();
+
+	Shader shader(obj.GetShaderSource());
+	shader.Bind();
+
+	Texture tex(obj.GetTextureFile());
+	tex.Bind();
+	shader.SetUniform1i("u_Texture", 0);
+
+	//Set WorldPosition
+	TiraMath::TranslateWorldTransformToMatrixTransform(model, obj.currentWorldTransform);
+	shader.SetModelViewProjection(model, view, proj);
+
 	GLCall(glDrawArrays(GL_TRIANGLES, 0, 36));
+}
+
+WorldObject& Tira3DRendering::CreateNewWorldObject(std::string objectName)
+{
+	return allWorldObj.emplace_back(objectName);
 }

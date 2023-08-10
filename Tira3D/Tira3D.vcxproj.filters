@@ -30,9 +30,6 @@
     <ClCompile Include="src\Files\FileUtilities.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\WorldObjects\Templates\Cube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\WorldObjects\WorldObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -72,6 +69,15 @@
     <ClCompile Include="src\Basics\BasicMovement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\World\Designer\TiraDesigner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\TiraObjects\TiraObjectsTemplates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\TiraDossier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Renderer\Tira3D.h">
@@ -90,9 +96,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Files\FileUtilities.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\WorldObjects\Templates\Cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\WorldObjects\WorldObject.h">
@@ -137,9 +140,19 @@
     <ClInclude Include="src\Basics\BasicMovement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\World\Designer\TiraDesigner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\TiraObjects\TiraObjectsTemplates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\TiraDossier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\Basic.kliveshader" />
+    <None Include="resources\shaders\Skybox.kliveshader" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\textures\TestTex.png">

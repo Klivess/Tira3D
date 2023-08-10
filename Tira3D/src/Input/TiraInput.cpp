@@ -1,12 +1,24 @@
 #include "TiraInput.h"
+#include <iostream>
 
-void TiraInput::RecordInput(TiraKey key, tiraInputCallback function, TiraKeyPressType pressType)
+TiraInput::TiraInput()
 {
-	RecordedTiraInputs record;
-	record.key = key;
-	record.triggertype = pressType;
-	record.callbackFunction = function;
-	inputs.push_back(record);
+	inputs = std::vector<RecordedTiraInputs>();
+	inputs.size();
+}
+
+void TiraInput::RecordInput(TiraKey key, std::function<void()> function, TiraKeyPressType pressType)
+{
+	try {
+		RecordedTiraInputs record;
+		record.key = key;
+		record.triggertype = pressType;
+		record.boundfunction = function;
+		inputs.push_back(record);
+	}
+	catch (std::exception ex) {
+		std::cout << "ohno " << ex.what() << std::endl;
+	}
 }
 
 void TiraInput::StopRecordingInput(TiraKey key, TiraKeyPressType pressType)

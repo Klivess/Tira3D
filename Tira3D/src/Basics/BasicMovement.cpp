@@ -8,6 +8,11 @@ BasicMovementSystem::BasicMovementSystem(WorldTransform* transformToModify, Worl
 	SetMovementSpeed(speed);
 }
 
+void BasicMovementSystem::SetMovementSpeed(float speed)
+{
+	MovementSpeed = speed;
+}
+
 void BasicMovementSystem::MoveForward()
 {
 	auto pos = TiraMath::ConvertWorldPositionToVec3((*transformToModify).worldPosition);
@@ -49,7 +54,7 @@ void BasicMovementSystem::MoveUp()
 	auto& transform = (*transformToModify);
 	auto& frontDir = (*frontDirection);
 
-	transform.worldPosition = TiraMath::ConvertVec3ToWorldPosition(pos = pos + (MovementSpeed * TiraMath::ConvertWorldRotationToVec3(frontDir)));
+	transform.worldPosition = TiraMath::ConvertVec3ToWorldPosition(pos = pos + (MovementSpeed * cameraUp));
 }
 
 void BasicMovementSystem::MoveDown()
@@ -58,5 +63,5 @@ void BasicMovementSystem::MoveDown()
 	auto& transform = (*transformToModify);
 	auto& frontDir = (*frontDirection);
 
-	transform.worldPosition = TiraMath::ConvertVec3ToWorldPosition(pos = pos - (MovementSpeed * TiraMath::ConvertWorldRotationToVec3(frontDir)));
+	transform.worldPosition = TiraMath::ConvertVec3ToWorldPosition(pos = pos - (MovementSpeed * cameraUp));
 }

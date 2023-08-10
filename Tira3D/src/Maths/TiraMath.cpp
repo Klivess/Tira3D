@@ -52,22 +52,50 @@ void TiraMath::TranslateTransformZ(glm::mat4& transform, float z)
 
 void TiraMath::ScaleTransformX(glm::mat4& transform, float x)
 {
-	ScaleTransform(transform, glm::vec3(x, 0, 0));
+	ScaleTransform(transform, glm::vec3(x, 1, 1));
 }
 
 void TiraMath::ScaleTransformY(glm::mat4& transform, float y)
 {
-	ScaleTransform(transform, glm::vec3(0, y, 0));
+	ScaleTransform(transform, glm::vec3(1, y, 1));
 }
 
 void TiraMath::ScaleTransformZ(glm::mat4& transform, float z)
 {
-	ScaleTransform(transform, glm::vec3(0, 0, z));
+	ScaleTransform(transform, glm::vec3(1, 1, z));
 }
 
 void TiraMath::ScaleTransformByScalar(glm::mat4& transform, float scalar)
 {
 	ScaleTransform(transform, glm::vec3(scalar, scalar, scalar));
+}
+
+void TiraMath::TranslateWorldTransformToMatrixTransform(glm::mat4& transform, WorldTransform worldTransform)
+{
+	TranslateWorldPositionToMatrixTransform(transform, worldTransform.worldPosition);
+	TranslateWorldRotationToMatrixTransform(transform, worldTransform.worldRotation);
+	TranslateWorldScaleToMatrixTransform(transform, worldTransform.worldScale);
+}
+
+void TiraMath::TranslateWorldPositionToMatrixTransform(glm::mat4& transform, WorldPosition position)
+{
+	TranslateTransformX(transform, position.x);
+	TranslateTransformY(transform, position.y);
+	TranslateTransformZ(transform, position.z);
+}
+
+void TiraMath::TranslateWorldRotationToMatrixTransform(glm::mat4& transform, WorldRotation rotation)
+{
+	RotateTransformX(transform, rotation.x);
+	RotateTransformY(transform, rotation.y);
+	RotateTransformZ(transform, rotation.z);
+}
+
+void TiraMath::TranslateWorldScaleToMatrixTransform(glm::mat4& transform, WorldScale scale)
+{
+	ScaleTransformX(transform, scale.x);
+	ScaleTransformY(transform, scale.y);
+	ScaleTransformZ(transform, scale.z);
 }
 
 void TiraMath::RotateTransform(glm::mat4& transform, float degrees, glm::vec3 axis)

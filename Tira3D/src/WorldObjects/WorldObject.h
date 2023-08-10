@@ -1,24 +1,58 @@
-#include "../Renderer/Tira3DRendering.h"
+#pragma once
 #include <iostream>
 #include "../World/World.h"
-#pragma once
-
-enum TiraObjects {
-	None,
-	Cube
-};
+#include "../Renderer/Shaders/Shader.h"
+#include "../Renderer/RenderObjects/VAO.h"
+#include "../Renderer/RenderObjects/VertexBuffer.h"
+#include "../Renderer/RenderObjects/IndexBuffer.h"
+#include "../Renderer/RenderObjects/VertexBufferLayout.h"
+#include "../Renderer/Textures/Texture.h"
+#include "../World/TiraObjects/TiraObjectsTemplates.h"
 
 class WorldObject
 {
 public:
+	std::string objectName;
+
 	WorldTransform currentWorldTransform;
 
-	WorldObject(Tira3DRendering* client) {
-		this->RenderClient = client;
-	}
-	std::vector<int> positions;
-	Tira3DRendering* RenderClient = nullptr;
+	WorldObject();
+	WorldObject(std::string objectName)
+		:objectName(objectName), currentWorldTransform(WorldTransform(WorldPosition(), WorldRotation(), WorldScale())) {}
+
+	void SetWorldPosition(WorldPosition position);
+	void SetWorldRotation(WorldRotation rotation);
+	void SetWorldScale(WorldScale scale);
+	void SetWorldTransform(WorldTransform transform);
 
 	void InstantiateObject(WorldPosition worldPos);
 	void InstantiateObject(WorldTransform worldPos);
+
+	void DestroyObject();
+
+	void LoadMesh(TiraObjects objectTemplate);
+	//void LoadMesh(TiraMesh objectTemplate);
+
+	std::string& GetShaderSource() {
+		return shaderSourcePath;
+	}
+
+	std::string& GetTextureFile() {
+		return textureFile;
+	}
+
+	VertexBufferLayout& GetVBLayout() {
+		return vbLayout;
+	}
+
+	std::vector<float>& GetMeshVerticies() {
+		return meshVertices;
+	}
+private:
+	bool ObjectInstantiated;
+
+	VertexBufferLayout vbLayout;
+	std::string shaderSourcePath;
+	std::string textureFile;
+	std::vector<float> meshVertices;
 };
