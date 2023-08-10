@@ -75,9 +75,6 @@
     <ClCompile Include="src\World\TiraObjects\TiraObjectsTemplates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\TiraDossier.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Renderer\Tira3D.h">
@@ -144,9 +141,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\World\TiraObjects\TiraObjectsTemplates.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\TiraDossier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
