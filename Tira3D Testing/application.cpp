@@ -36,6 +36,7 @@ void main() {
 			tira.AttachedCamera->m_Movement.MoveDown();
 			});
 
+
 		auto& obj = tira.Designer().CreateNewWorldObject("MyCube");
 		obj.SetWorldPosition(WorldPosition(0, 0, -6));
 		obj.SetWorldScale(WorldScale(20, 1, 20));

@@ -155,6 +155,35 @@ void Tira3DRendering::Clear()
 	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 }
 
+
+Shader& Tira3DRendering::GetCachedShader(std::string path)
+{
+	auto it = std::find_if(shaderCache.begin(), shaderCache.end(),
+		[path](const Shader& obj) {
+			return obj.m_shaderFilepath == path;
+		});
+	if (it != shaderCache.end()) {
+		return *it;
+	}
+	else {
+		return shaderCache.emplace_back(path);
+	}
+}
+
+Texture& Tira3DRendering::GetCachedTexture(std::string path)
+{
+	auto it = std::find_if(textureCache.begin(), textureCache.end(),
+		[path](const Texture& obj) {
+			return obj.m_FilePath == path;
+		});
+	if (it != textureCache.end()) {
+		return *it;
+	}
+	else {
+		return textureCache.emplace_back(path);
+	}
+}
+
 void Tira3DRendering::Draw(WorldObject& obj)
 {
 	//matrices
@@ -167,10 +196,10 @@ void Tira3DRendering::Draw(WorldObject& obj)
 	vao.AddBuffer(vb, obj.GetVBLayout());
 	vao.Bind();
 
-	Shader shader(obj.GetShaderSource());
+	Shader& shader = GetCachedShader(obj.GetShaderSource());
 	shader.Bind();
 
-	Texture tex(obj.GetTextureFile());
+	Texture& tex = GetCachedTexture(obj.GetTextureFile());
 	tex.Bind();
 	shader.SetUniform1i("u_Texture", 0);
 
@@ -179,6 +208,7 @@ void Tira3DRendering::Draw(WorldObject& obj)
 	shader.SetModelViewProjection(model, view, proj);
 
 	GLCall(glDrawArrays(GL_TRIANGLES, 0, 36));
+	tex.Unbind();
 }
 
 WorldObject& Tira3DRendering::CreateNewWorldObject(std::string objectName)

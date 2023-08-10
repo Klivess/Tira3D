@@ -35,9 +35,14 @@ private:
 	float deltaTime = 0.0f;	// time between current frame and last frame
 	float lastFrame = 0.0f;
 
+	std::vector<Shader> shaderCache;
+	std::vector<Texture> textureCache;
+
 	void ProcessInput(GLFWwindow* window);
 	void MouseInput(GLFWwindow* window, double xpos, double ypos);
-	std::vector<unsigned int> shadersInUse = {};
+
+	Shader& GetCachedShader(std::string path);
+	Texture& GetCachedTexture(std::string path);
 
 	static void Window_FrameBuffer_Size_Callback(GLFWwindow* window, int width, int height);
 	static void GLFWError_Callback(int error, const char* description);
