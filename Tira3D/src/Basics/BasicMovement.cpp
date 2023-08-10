@@ -11,7 +11,15 @@ BasicMovementSystem::BasicMovementSystem(WorldTransform* transformToModify, Worl
 void BasicMovementSystem::SetMovementSpeed(float speed)
 {
 	MovementSpeed = speed;
+	if (MovementSpeed <= 0) {
+		MovementSpeed = 0;
+	}
 }
+
+float& BasicMovementSystem::GetMovementSpeed() {
+	return MovementSpeed;
+}
+
 
 void BasicMovementSystem::MoveForward()
 {

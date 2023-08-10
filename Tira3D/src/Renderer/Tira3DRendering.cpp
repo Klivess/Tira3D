@@ -66,13 +66,36 @@ void Tira3DRendering::ProcessInput(GLFWwindow* window)
 	}
 }
 
-void Tira3DRendering::MouseInput(GLFWwindow* window, double xpos, double ypos)
-{
-}
-
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 	Tira3DRendering* app = static_cast<Tira3DRendering*>(glfwGetWindowUserPointer(window));
 	app->currentCamera->cameraRender.CameraMouseCallback(window, xpos, ypos);
+}
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	Tira3DRendering* app = static_cast<Tira3DRendering*>(glfwGetWindowUserPointer(window));
+	auto& existingInputs = app->tiraInput->GetExistingInputs();
+
+	if (existingInputs.empty() == false) {
+		for (unsigned int i = 0; i < existingInputs.size(); i++) {
+			auto& input = existingInputs[i];
+			if (input.key == TIRA_KEY_SCROLL_UP && yoffset > 0) {
+				for (int i = 0; i < yoffset; i++)
+				{
+					input.boundfunction();
+				}
+			}
+			else if (input.key == TIRA_KEY_SCROLL_DOWN && yoffset < 0) {
+				for (int i = 0; i < abs(yoffset); i++)
+				{
+					input.boundfunction();
+				}
+			}
+			if (glfwGetKey(window, input.key) == input.triggertype) {
+				input.boundfunction();
+			}
+		}
+	}
 }
 
 
@@ -128,13 +151,15 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 
 		ProcessInput(currentWindow);
 		glfwSetCursorPosCallback(currentWindow, mouse_callback);
+		glfwSetScrollCallback(currentWindow, scroll_callback);
 
-
+		/*
 		Tira3DLogging::LogToConsole("I am at x:" + std::to_string(currentcamera->transform.worldPosition.x)
 			+ " y: " + std::to_string(currentcamera->transform.worldPosition.y)
 			+ " z: " + std::to_string(currentcamera->transform.worldPosition.z));
+			*/
 
-		// Render here
+			// Render here
 		Clear();
 		for (unsigned int i = 0; i < allWorldObj.size(); i++) {
 			WorldObject& obj = allWorldObj[i];

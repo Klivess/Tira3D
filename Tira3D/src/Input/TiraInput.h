@@ -128,6 +128,8 @@ enum TiraKey {
 	TIRA_KEY_RIGHT_CONTROL = 345,
 	TIRA_KEY_RIGHT_ALT = 346,
 	TIRA_KEY_RIGHT_SUPER = 347,
+	TIRA_KEY_SCROLL_UP = 1000,
+	TIRA_KEY_SCROLL_DOWN = 1001
 };
 
 typedef void (tiraInputCallback)(void);

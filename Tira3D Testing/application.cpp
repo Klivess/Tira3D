@@ -45,6 +45,15 @@ void main() {
 			tira.AttachedCamera->m_Movement.MoveDown();
 			});
 
+		//Changing speed
+		tira.Inputs().RecordInput(TiraKey::TIRA_KEY_SCROLL_UP, [&]() {
+			tira.AttachedCamera->m_Movement.SetMovementSpeed(tira.AttachedCamera->m_Movement.GetMovementSpeed() + 0.2);
+			});
+		tira.Inputs().RecordInput(TiraKey::TIRA_KEY_SCROLL_DOWN, [&]() {
+			tira.AttachedCamera->m_Movement.SetMovementSpeed(tira.AttachedCamera->m_Movement.GetMovementSpeed() - 0.2);
+			});
+
+
 		tira.WaitUntilUserClosedWindow();
 		delete& tira;
 	}

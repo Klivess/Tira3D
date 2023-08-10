@@ -8,6 +8,7 @@ public:
 	BasicMovementSystem(WorldTransform* transformToModify, WorldRotation* frontDirection, float speed = 0.1);
 
 	void SetMovementSpeed(float speed);
+	float& GetMovementSpeed();
 
 	void MoveForward();
 	void MoveRight();
