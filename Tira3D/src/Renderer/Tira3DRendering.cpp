@@ -59,6 +59,8 @@ void Tira3DRendering::ProcessInput(GLFWwindow* window)
 	if (existingInputs.empty() == false) {
 		for (unsigned int i = 0; i < existingInputs.size(); i++) {
 			auto& input = existingInputs[i];
+			if (input.key == TIRA_KEY_SCROLL_UP || input.key == TIRA_KEY_SCROLL_DOWN)
+				continue;
 			if (glfwGetKey(window, input.key) == input.triggertype) {
 				input.boundfunction();
 			}
