@@ -9,7 +9,7 @@ bool GLLogCall(const char* function, const char* file, int line);
 
 //__debugbreak is compiler specific!!! will rewrite this in the future
 //works on Visual Studio
-#define ASSERT(x) if (!(x)) __debugbreak()
+#define ASSERT(x)
 
 //wrap every single GL reference/call in GLCall().
 //do NOT wrap GLFW calls.

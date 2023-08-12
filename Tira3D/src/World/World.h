@@ -14,10 +14,10 @@ public:
 	float z;
 
 	void MoveRight(float amount) {
-		x + amount;
+		x += amount;
 	}
 	void MoveForward(float amount) {
-		z + amount;
+		z += amount;
 	}
 
 };

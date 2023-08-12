@@ -27,7 +27,7 @@ public:
 
 	template<typename T>
 	void Push(unsigned int count) {
-		static_assert(true);
+		//static_assert(true);
 	}
 
 	template<>

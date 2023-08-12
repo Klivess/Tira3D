@@ -27,7 +27,7 @@ public:
 	WorldObject test1;
 	WorldObject test2;
 
-	WorldObject& CreateNewWorldObject(std::string objectName);
+	WorldObject& CreateNewWorldObject(const std::string& objectName);
 	Tira3DRendering();
 	Camera* GetAttachedCamera();
 	void CreateRender(int width, int height, const char* title, GLFWmonitor* monitor);

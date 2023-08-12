@@ -238,7 +238,7 @@ void Tira3DRendering::Draw(WorldObject& obj)
 	tex.Unbind();
 }
 
-WorldObject& Tira3DRendering::CreateNewWorldObject(std::string objectName)
+WorldObject& Tira3DRendering::CreateNewWorldObject(const std::string& objectName)
 {
 	return allWorldObj.emplace_back(objectName);
 }
