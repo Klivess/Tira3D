@@ -118,7 +118,7 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 	*WindowClosed = false;
 	if (currentWindow == NULL) {
 		glfwTerminate();
-		throw std::exception("Failed to create GLFW window.");
+		throw "Failed to create GLFW window.";
 	}
 	glfwMakeContextCurrent(Tira3DRendering::currentWindow);
 	glfwSwapInterval(1);
@@ -134,7 +134,9 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 	if (err != GLEW_OK)
 	{
 		/* Problem: glewInit failed, something is seriously wrong. */
-		throw ("Couldn't initialise GLEW: " + (const char)glewGetErrorString(err));
+		auto errData = glewGetErrorString(err);
+		    std::string convertedString(reinterpret_cast<const char*>(*errData));
+		throw ("Couldn't initialise GLEW: " + convertedString);
 	}
 	WindowInstantiated = true;
 	glfwSetFramebufferSizeCallback(Tira3DRendering::currentWindow, Window_FrameBuffer_Size_Callback);
@@ -193,7 +195,8 @@ Shader& Tira3DRendering::GetCachedShader(std::string path)
 		return *it;
 	}
 	else {
-		return shaderCache.emplace_back(path);
+	 	shaderCache.emplace_back(path);
+		return shaderCache.back();
 	}
 }
 
@@ -207,7 +210,8 @@ Texture& Tira3DRendering::GetCachedTexture(std::string path)
 		return *it;
 	}
 	else {
-		return textureCache.emplace_back(path);
+		textureCache.emplace_back(path);
+		return textureCache.back();
 	}
 }
 
@@ -240,5 +244,6 @@ void Tira3DRendering::Draw(WorldObject& obj)
 
 WorldObject& Tira3DRendering::CreateNewWorldObject(const std::string& objectName)
 {
-	return allWorldObj.emplace_back(objectName);
+	allWorldObj.emplace_back(objectName);
+	return allWorldObj.back();
 }
