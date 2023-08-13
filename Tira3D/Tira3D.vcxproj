@@ -130,9 +130,9 @@
       <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\GLEW;$(SolutionDir)Dependencies\GLFW;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\GLEW;$(SolutionDir)Dependencies\GLFW;$(SolutionDir)Dependencies\ASSIMP;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)Tira3D.lib</OutputFile>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;assimp.lib;</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,12 +155,14 @@
       <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\GLEW;$(SolutionDir)Dependencies\GLFW;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\GLEW;$(SolutionDir)Dependencies\GLFW;$(SolutionDir)Dependencies\ASSIMP;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)Tira3D.lib</OutputFile>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;assimp.lib;</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Renderer\Mesh\MeshSetup.cpp" />
+    <ClCompile Include="src\Renderer\Mesh\Mesh.cpp" />
     <ClCompile Include="src\Basics\BasicMovement.cpp" />
     <ClCompile Include="src\World\Camera\CameraRender.cpp" />
     <ClCompile Include="src\Input\TiraInput.cpp" />
@@ -183,6 +185,8 @@
     <ClCompile Include="src\World\Designer\TiraDesigner.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Renderer\Mesh\MeshSetup.h" />
+    <ClInclude Include="src\Renderer\Mesh\Mesh.h" />
     <ClInclude Include="src\Basics\BasicMovement.h" />
     <ClInclude Include="src\World\Camera\CameraRender.h" />
     <ClInclude Include="src\Input\TiraInput.h" />
