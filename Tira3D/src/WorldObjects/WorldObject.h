@@ -8,6 +8,7 @@
 #include "../Renderer/RenderObjects/VertexBufferLayout.h"
 #include "../Renderer/Textures/Texture.h"
 #include "../World/TiraObjects/TiraObjectsTemplates.h"
+#include "ObjectAttributes.h"
 
 class WorldObject
 {
@@ -27,6 +28,11 @@ public:
 
 	void InstantiateObject(WorldPosition worldPos);
 	void InstantiateObject(WorldTransform worldPos);
+
+	void LoadTexture(std::string texturePath);
+
+	void SetColour(ObjectColour colour);
+	ObjectColour GetColour() { return colour; }
 
 	void DestroyObject();
 
@@ -55,4 +61,5 @@ private:
 	std::string shaderSourcePath;
 	std::string textureFile;
 	std::vector<float> meshVertices;
+	ObjectColour colour;
 };
