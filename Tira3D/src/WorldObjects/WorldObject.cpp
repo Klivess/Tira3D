@@ -44,6 +44,16 @@ void WorldObject::DestroyObject()
 {
 }
 
+void WorldObject::LoadTexture(std::string texturePath)
+{
+	textureFile = texturePath;
+}
+
+void WorldObject::SetColour(ObjectColour colour)
+{
+	this->colour = colour;
+}
+
 void WorldObject::LoadMesh(TiraObjects objectTemplate)
 {
 	meshVertices = LoadMeshVerticesByTiraObjectTemplate(objectTemplate);
@@ -51,7 +61,4 @@ void WorldObject::LoadMesh(TiraObjects objectTemplate)
 	vbLayout.Push<float>(3);
 	//texture layout
 	vbLayout.Push<float>(2);
-
-	shaderSourcePath = (R"(C:\Projects\Software\Tira3D\Tira3D\resources\shaders\Basic.kliveshader)");
-	textureFile = R"(C:\Projects\Software\Tira3D\Tira3D\resources\textures\TestTex3.jpg)";
 }

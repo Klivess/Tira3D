@@ -59,6 +59,8 @@ void Tira3DRendering::ProcessInput(GLFWwindow* window)
 	if (existingInputs.empty() == false) {
 		for (unsigned int i = 0; i < existingInputs.size(); i++) {
 			auto& input = existingInputs[i];
+			if (input.key == TIRA_KEY_SCROLL_UP || input.key == TIRA_KEY_SCROLL_DOWN)
+				continue;
 			if (glfwGetKey(window, input.key) == input.triggertype) {
 				input.boundfunction();
 			}
@@ -221,19 +223,27 @@ void Tira3DRendering::Draw(WorldObject& obj)
 	vao.AddBuffer(vb, obj.GetVBLayout());
 	vao.Bind();
 
-	Shader& shader = GetCachedShader(obj.GetShaderSource());
+	Shader& shader = GetCachedShader(R"(C:\Projects\Software\Tira3D\Tira3D\resources\shaders\Basic.kliveshader)");
 	shader.Bind();
 
-	Texture& tex = GetCachedTexture(obj.GetTextureFile());
-	tex.Bind();
-	shader.SetUniform1i("u_Texture", 0);
+	shader.SetUniform4f("u_Color", obj.GetColour().r / 255, obj.GetColour().g / 255, obj.GetColour().b / 255, obj.GetColour().a);
+
+	Texture* tex = nullptr;
+	if (obj.GetTextureFile() != "") {
+		tex = &GetCachedTexture(obj.GetTextureFile());
+		tex->Bind();
+		shader.SetUniform1i("u_Texture", 0);
+	}
+
 
 	//Set WorldPosition
 	TiraMath::TranslateWorldTransformToMatrixTransform(model, obj.currentWorldTransform);
 	shader.SetModelViewProjection(model, view, proj);
 
 	GLCall(glDrawArrays(GL_TRIANGLES, 0, 36));
-	tex.Unbind();
+	if (obj.GetTextureFile() != "" && tex != nullptr) {
+		tex->Unbind();
+	}
 }
 
 WorldObject& Tira3DRendering::CreateNewWorldObject(std::string objectName)
