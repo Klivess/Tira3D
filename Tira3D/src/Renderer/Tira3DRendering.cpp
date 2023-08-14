@@ -208,12 +208,6 @@ void Tira3DRendering::Draw(WorldObject& obj)
 	Shader& shader = GetCachedShader(R"(C:\Projects\Software\Tira3D\Tira3D\resources\shaders\Basic.kliveshader)");
 	shader.Bind();
 
-	Model& objectModel = obj.GetObjectMeshModel();
-	if (objectModel.meshes.size() != 0) {
-		for (unsigned int i = 0; i < objectModel.meshes.size(); i++)
-			objectModel.meshes[i].DrawFromMesh(shader);
-	}
-
 	shader.SetUniform4f("u_Color", obj.GetColour().r / 255, obj.GetColour().g / 255, obj.GetColour().b / 255, obj.GetColour().a);
 
 	Texture* tex = nullptr;
@@ -228,7 +222,14 @@ void Tira3DRendering::Draw(WorldObject& obj)
 	TiraMath::TranslateWorldTransformToMatrixTransform(model, obj.currentWorldTransform);
 	shader.SetModelViewProjection(model, view, proj);
 
-	//GLCall(glDrawArrays(GL_TRIANGLES, 0, 36));
+	Model& objectModel = obj.GetObjectMeshModel();
+	if (objectModel.meshes.size() != 0) {
+		for (unsigned int i = 0; i < objectModel.meshes.size(); i++)
+			objectModel.meshes[i].DrawFromMesh(shader);
+	}
+	else {
+		GLCall(glDrawArrays(GL_TRIANGLES, 0, 36));
+	}
 	if (obj.GetTextureFile() != "" && tex != nullptr) {
 		tex->Unbind();
 	}
