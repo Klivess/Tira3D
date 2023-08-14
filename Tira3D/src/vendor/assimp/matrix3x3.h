@@ -50,7 +50,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #   pragma GCC system_header
 #endif
 
-#include <assimp/defs.h>
+#include "../assimp/defs.h"
 
 #ifdef __cplusplus
 
@@ -75,9 +75,9 @@ public:
         b1(), b2(static_cast<TReal>(1.0f)), b3(),
         c1(), c2(), c3(static_cast<TReal>(1.0f)) {}
 
-    aiMatrix3x3t (  TReal _a1, TReal _a2, TReal _a3,
-                    TReal _b1, TReal _b2, TReal _b3,
-                    TReal _c1, TReal _c2, TReal _c3) :
+    aiMatrix3x3t(TReal _a1, TReal _a2, TReal _a3,
+        TReal _b1, TReal _b2, TReal _b3,
+        TReal _c1, TReal _c2, TReal _c3) :
         a1(_a1), a2(_a2), a3(_a3),
         b1(_b1), b2(_b2), b3(_b3),
         c1(_c1), c2(_c2), c3(_c3)
@@ -95,16 +95,16 @@ public:
     bool operator== (const aiMatrix3x3t<TReal>& m) const;
     bool operator!= (const aiMatrix3x3t<TReal>& m) const;
 
-    bool Equal(const aiMatrix3x3t<TReal> &m, TReal epsilon = ai_epsilon) const;
+    bool Equal(const aiMatrix3x3t<TReal>& m, TReal epsilon = ai_epsilon) const;
 
     template <typename TOther>
-    operator aiMatrix3x3t<TOther> () const;
+    operator aiMatrix3x3t<TOther>() const;
 
     // -------------------------------------------------------------------
     /** @brief Construction from a 4x4 matrix. The remaining parts
      *  of the matrix are ignored.
      */
-    explicit aiMatrix3x3t( const aiMatrix4x4t<TReal>& pMatrix);
+    explicit aiMatrix3x3t(const aiMatrix4x4t<TReal>& pMatrix);
 
     // -------------------------------------------------------------------
     /** @brief Transpose the matrix
@@ -135,7 +135,7 @@ public:
      *  @param axis Axis to rotate around
      *  @param out To be filled
      */
-    static aiMatrix3x3t& Rotation( TReal a, const aiVector3t<TReal>& axis, aiMatrix3x3t& out);
+    static aiMatrix3x3t& Rotation(TReal a, const aiVector3t<TReal>& axis, aiMatrix3x3t& out);
 
     // -------------------------------------------------------------------
     /** @brief Returns a translation matrix
@@ -143,7 +143,7 @@ public:
      *  @param out Receives the output matrix
      *  @return Reference to the output matrix
      */
-    static aiMatrix3x3t& Translation( const aiVector2t<TReal>& v, aiMatrix3x3t& out);
+    static aiMatrix3x3t& Translation(const aiVector2t<TReal>& v, aiMatrix3x3t& out);
 
     // -------------------------------------------------------------------
     /** @brief A function for creating a rotation matrix that rotates a

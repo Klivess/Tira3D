@@ -5,6 +5,7 @@
 class VAO
 {
 public:
+	unsigned int m_RendererID;
 	VAO();
 	~VAO();
 
@@ -14,6 +15,6 @@ public:
 	void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
 private:
 	//ID of GPU buffer location 
-	unsigned int m_RendererID;
+	//unsigned int m_RendererID;
 };
 

@@ -10,6 +10,7 @@ class IndexBuffer
 public:
 	//this is a bad idea and will be removed in the future.
 	const unsigned int* m_indices;
+	IndexBuffer();
 	IndexBuffer(const unsigned int* data, unsigned int count);
 	~IndexBuffer();
 

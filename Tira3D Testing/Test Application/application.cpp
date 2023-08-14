@@ -54,11 +54,11 @@ void main() {
 
 		SetupTiraInputs();
 
-		auto& obj = tira.Designer().CreateNewWorldObject("MyCube");
+		auto& obj = tira.Designer().CreateNewWorldObject("MySculpt");
 		obj.SetWorldPosition(WorldPosition(0, 0, 0));
-		obj.LoadMesh(TiraObjects::Cube);
-		obj.LoadTexture(R"(C:\Projects\Software\Tira3D\Tira3D Testing\Assets\Textures\onepiecesucks.jpg)");
-		obj.SetColour(ObjectColour(0, 0, 255, 1));
+		obj.LoadMesh(R"("C:\Projects\Software\Tira3D\Tira3D Testing\Assets\Models\Backpack\backpack.fbx")");
+		//obj.LoadTexture(R"(C:\Projects\Software\Tira3D\Tira3D Testing\Assets\Textures\onepiecesucks.jpg)");
+		//obj.SetColour(ObjectColour(0, 0, 255, 1));
 
 
 		//Animated Cube bobbing.

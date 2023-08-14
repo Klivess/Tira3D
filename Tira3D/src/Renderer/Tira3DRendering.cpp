@@ -35,19 +35,6 @@ bool Tira3DRendering::InitialiseRender() {
 	return true;
 }
 
-/*
-void Tira3DRendering::AddShaderToProgram(unsigned int shader) {
-	shadersInUse.push_back(shader);
-	GLCall(glUseProgram(shader));
-}
-
-void Tira3DRendering::RemoveShaderFromProgram(unsigned int shader) {
-	auto index = std::find(shadersInUse.begin(), shadersInUse.end(), shader);
-	shadersInUse.erase(index);
-	GLCall(glUseProgram(0));
-}
-*/
-
 Tira3DRendering::Tira3DRendering()
 {
 }
@@ -218,13 +205,14 @@ void Tira3DRendering::Draw(WorldObject& obj)
 	glm::mat4 view = currentCamera->cameraRender.CalculateViewMatrix();
 	glm::mat4 model = TiraMath::CreateTransformationMatrix();
 
-	VAO vao = VAO();
-	VertexBuffer vb = VertexBuffer(obj.GetMeshVerticies().data(), obj.GetMeshVerticies().size() * sizeof(obj.GetMeshVerticies()[0]));
-	vao.AddBuffer(vb, obj.GetVBLayout());
-	vao.Bind();
-
 	Shader& shader = GetCachedShader(R"(C:\Projects\Software\Tira3D\Tira3D\resources\shaders\Basic.kliveshader)");
 	shader.Bind();
+
+	Model& objectModel = obj.GetObjectMeshModel();
+	if (objectModel.meshes.size() != 0) {
+		for (unsigned int i = 0; i < objectModel.meshes.size(); i++)
+			objectModel.meshes[i].DrawFromMesh(shader);
+	}
 
 	shader.SetUniform4f("u_Color", obj.GetColour().r / 255, obj.GetColour().g / 255, obj.GetColour().b / 255, obj.GetColour().a);
 
@@ -240,7 +228,7 @@ void Tira3DRendering::Draw(WorldObject& obj)
 	TiraMath::TranslateWorldTransformToMatrixTransform(model, obj.currentWorldTransform);
 	shader.SetModelViewProjection(model, view, proj);
 
-	GLCall(glDrawArrays(GL_TRIANGLES, 0, 36));
+	//GLCall(glDrawArrays(GL_TRIANGLES, 0, 36));
 	if (obj.GetTextureFile() != "" && tex != nullptr) {
 		tex->Unbind();
 	}

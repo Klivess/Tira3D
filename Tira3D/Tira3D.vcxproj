@@ -120,7 +120,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Tira3D\src\vendor\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -132,7 +132,7 @@
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\GLEW;$(SolutionDir)Dependencies\GLFW;$(SolutionDir)Dependencies\ASSIMP;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)Tira3D.lib</OutputFile>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;assimp.lib;</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;assimp-vc143-mt.lib;</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -143,7 +143,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Tira3D\src\vendor\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -157,11 +157,11 @@
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\GLEW;$(SolutionDir)Dependencies\GLFW;$(SolutionDir)Dependencies\ASSIMP;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)Tira3D.lib</OutputFile>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;assimp.lib;</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;assimp-vc143-mt.lib;</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Renderer\Mesh\MeshSetup.cpp" />
+    <ClCompile Include="src\Renderer\Mesh\Model\Model.cpp" />
     <ClCompile Include="src\Renderer\Mesh\Mesh.cpp" />
     <ClCompile Include="src\Basics\BasicMovement.cpp" />
     <ClCompile Include="src\World\Camera\CameraRender.cpp" />
@@ -185,7 +185,7 @@
     <ClCompile Include="src\World\Designer\TiraDesigner.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Renderer\Mesh\MeshSetup.h" />
+    <ClInclude Include="src\Renderer\Mesh\Model\Model.h" />
     <ClInclude Include="src\Renderer\Mesh\Mesh.h" />
     <ClInclude Include="src\Basics\BasicMovement.h" />
     <ClInclude Include="src\World\Camera\CameraRender.h" />
@@ -211,6 +211,7 @@
     <ClInclude Include="src\World\TiraObjects\TiraObjectsTemplates.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="resources\models\HeadSculpt.fbx" />
     <None Include="resources\shaders\Basic.kliveshader" />
     <None Include="resources\shaders\Skybox.kliveshader" />
   </ItemGroup>

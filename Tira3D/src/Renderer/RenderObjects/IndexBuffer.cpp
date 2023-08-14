@@ -1,5 +1,9 @@
 #include "IndexBuffer.h"
 
+IndexBuffer::IndexBuffer()
+{
+}
+
 IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count) : Count(count)
 {
 	m_indices = data;

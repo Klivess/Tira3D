@@ -52,28 +52,28 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma GCC system_header
 #endif
 
-#include <assimp/config.h>
+#include "../assimp/config.h"
 
-//////////////////////////////////////////////////////////////////////////
-/* Define ASSIMP_BUILD_NO_XX_IMPORTER to disable a specific
- * file format loader. The loader is be excluded from the
- * build in this case. 'XX' stands for the most common file
- * extension of the file format. E.g.:
- * ASSIMP_BUILD_NO_X_IMPORTER disables the X loader.
- *
- * If you're unsure about that, take a look at the implementation of the
- * import plugin you wish to disable. You'll find the right define in the
- * first lines of the corresponding unit.
- *
- * Other (mixed) configuration switches are listed here:
- *    ASSIMP_BUILD_NO_COMPRESSED_X
- *      - Disable support for compressed X files (zip)
- *    ASSIMP_BUILD_NO_COMPRESSED_BLEND
- *      - Disable support for compressed Blender files (zip)
- *    ASSIMP_BUILD_NO_COMPRESSED_IFC
- *      - Disable support for IFCZIP files (unzip)
- */
-//////////////////////////////////////////////////////////////////////////
+ //////////////////////////////////////////////////////////////////////////
+ /* Define ASSIMP_BUILD_NO_XX_IMPORTER to disable a specific
+  * file format loader. The loader is be excluded from the
+  * build in this case. 'XX' stands for the most common file
+  * extension of the file format. E.g.:
+  * ASSIMP_BUILD_NO_X_IMPORTER disables the X loader.
+  *
+  * If you're unsure about that, take a look at the implementation of the
+  * import plugin you wish to disable. You'll find the right define in the
+  * first lines of the corresponding unit.
+  *
+  * Other (mixed) configuration switches are listed here:
+  *    ASSIMP_BUILD_NO_COMPRESSED_X
+  *      - Disable support for compressed X files (zip)
+  *    ASSIMP_BUILD_NO_COMPRESSED_BLEND
+  *      - Disable support for compressed Blender files (zip)
+  *    ASSIMP_BUILD_NO_COMPRESSED_IFC
+  *      - Disable support for IFCZIP files (unzip)
+  */
+  //////////////////////////////////////////////////////////////////////////
 
 #ifndef ASSIMP_BUILD_NO_COMPRESSED_X
 #define ASSIMP_BUILD_NEED_Z_INFLATE
@@ -135,7 +135,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * GENENTITYMESHES
  * FIXTEXTUREPATHS
  * GENBOUNDINGBOXES */
-//////////////////////////////////////////////////////////////////////////
+ //////////////////////////////////////////////////////////////////////////
 
 #ifdef _WIN32
 #undef ASSIMP_API
@@ -149,7 +149,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////////////
 /* Define 'ASSIMP_DLL' before including Assimp to link to ASSIMP in
      * an external DLL under Windows. Default is static linkage. */
-//////////////////////////////////////////////////////////////////////////
+     //////////////////////////////////////////////////////////////////////////
 #elif (defined ASSIMP_DLL)
 #define ASSIMP_API __declspec(dllimport)
 #define ASSIMP_API_WINONLY __declspec(dllimport)
@@ -165,21 +165,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif // _WIN32
 
 #ifdef _MSC_VER
-    #pragma warning(disable : 4521 4512 4714 4127 4351 4510)
-    #ifdef ASSIMP_BUILD_DLL_EXPORT
-        #pragma warning(disable : 4251)
-    #endif
-    /* Force the compiler to inline a function, if possible */
-    #define AI_FORCE_INLINE inline
+#pragma warning(disable : 4521 4512 4714 4127 4351 4510)
+#ifdef ASSIMP_BUILD_DLL_EXPORT
+#pragma warning(disable : 4251)
+#endif
+/* Force the compiler to inline a function, if possible */
+#define AI_FORCE_INLINE inline
 
-    /* Tells the compiler that a function never returns. Used in code analysis
-    * to skip dead paths (e.g. after an assertion evaluated to false). */
-    #define AI_WONT_RETURN __declspec(noreturn)
+/* Tells the compiler that a function never returns. Used in code analysis
+* to skip dead paths (e.g. after an assertion evaluated to false). */
+#define AI_WONT_RETURN __declspec(noreturn)
 #elif defined(SWIG)
   /* Do nothing, the relevant defines are all in AssimpSwigPort.i */
 #else
-    #define AI_WONT_RETURN
-    #define AI_FORCE_INLINE inline
+#define AI_WONT_RETURN
+#define AI_FORCE_INLINE inline
 #endif // (defined _MSC_VER)
 
 #ifdef __GNUC__
@@ -190,7 +190,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifdef __cplusplus
 /* No explicit 'struct' and 'enum' tags for C++, this keeps showing up
- * in doxydocs. 
+ * in doxydocs.
  */
 #define C_STRUCT
 #define C_ENUM
@@ -199,24 +199,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* To build the documentation, make sure ASSIMP_DOXYGEN_BUILD
      * is defined by Doxygen's preprocessor. The corresponding
      * entries in the DOXYFILE are: */
-//////////////////////////////////////////////////////////////////////////
+     //////////////////////////////////////////////////////////////////////////
 #if 0
-    ENABLE_PREPROCESSING   = YES
-    MACRO_EXPANSION        = YES
-    EXPAND_ONLY_PREDEF     = YES
-    SEARCH_INCLUDES        = YES
-    INCLUDE_PATH           =
-    INCLUDE_FILE_PATTERNS  =
-    PREDEFINED             = ASSIMP_DOXYGEN_BUILD=1
-    EXPAND_AS_DEFINED      = C_STRUCT C_ENUM
-    SKIP_FUNCTION_MACROS   = YES
+ENABLE_PREPROCESSING = YES
+MACRO_EXPANSION = YES
+EXPAND_ONLY_PREDEF = YES
+SEARCH_INCLUDES = YES
+INCLUDE_PATH =
+INCLUDE_FILE_PATTERNS =
+PREDEFINED = ASSIMP_DOXYGEN_BUILD = 1
+EXPAND_AS_DEFINED = C_STRUCT C_ENUM
+SKIP_FUNCTION_MACROS = YES
 #endif
 //////////////////////////////////////////////////////////////////////////
 /* Doxygen gets confused if we use c-struct typedefs to avoid
      * the explicit 'struct' notation. This trick here has the same
      * effect as the TYPEDEF_HIDES_STRUCT option, but we don't need
      * to typedef all structs/enums. */
-//////////////////////////////////////////////////////////////////////////
+     //////////////////////////////////////////////////////////////////////////
 #if (defined ASSIMP_DOXYGEN_BUILD)
 #define C_STRUCT
 #define C_ENUM
@@ -234,7 +234,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /* Define ASSIMP_BUILD_SINGLETHREADED to compile assimp
      * without threading support. The library doesn't utilize
      * threads then and is itself not threadsafe. */
-//////////////////////////////////////////////////////////////////////////
+     //////////////////////////////////////////////////////////////////////////
 #ifndef ASSIMP_BUILD_SINGLETHREADED
 #define ASSIMP_BUILD_SINGLETHREADED
 #endif
@@ -246,17 +246,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////////////
 /* Define ASSIMP_DOUBLE_PRECISION to compile assimp
      * with double precision support (64-bit). */
-//////////////////////////////////////////////////////////////////////////
+     //////////////////////////////////////////////////////////////////////////
 
 #ifdef ASSIMP_DOUBLE_PRECISION
-typedef double ai_real;
+    typedef double ai_real;
 typedef signed long long int ai_int;
 typedef unsigned long long int ai_uint;
 #ifndef ASSIMP_AI_REAL_TEXT_PRECISION
 #define ASSIMP_AI_REAL_TEXT_PRECISION 17
 #endif // ASSIMP_AI_REAL_TEXT_PRECISION
 #else // ASSIMP_DOUBLE_PRECISION
-typedef float ai_real;
+    typedef float ai_real;
 typedef signed int ai_int;
 typedef unsigned int ai_uint;
 #ifndef ASSIMP_AI_REAL_TEXT_PRECISION
@@ -283,7 +283,7 @@ typedef unsigned int ai_uint;
 #define AI_RAD_TO_DEG(x) ((x) * (ai_real) 57.2957795)
 
 /* Numerical limits */
-static const ai_real ai_epsilon = (ai_real) 1e-6;
+static const ai_real ai_epsilon = (ai_real)1e-6;
 
 /* Support for big-endian builds */
 #if defined(__BYTE_ORDER__)
@@ -322,9 +322,9 @@ static const ai_real ai_epsilon = (ai_real) 1e-6;
 #endif
 #endif // _MSC_VER
 
-/**
- *  Helper macro to set a pointer to NULL in debug builds
- */
+ /**
+  *  Helper macro to set a pointer to NULL in debug builds
+  */
 #if (defined ASSIMP_BUILD_DEBUG)
 #define AI_DEBUG_INVALIDATE_PTR(x) x = NULL;
 #else

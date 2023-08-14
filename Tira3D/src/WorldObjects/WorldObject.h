@@ -9,6 +9,7 @@
 #include "../Renderer/Textures/Texture.h"
 #include "../World/TiraObjects/TiraObjectsTemplates.h"
 #include "ObjectAttributes.h"
+#include "../Renderer/Mesh/Model/Model.h"
 
 class WorldObject
 {
@@ -37,7 +38,7 @@ public:
 	void DestroyObject();
 
 	void LoadMesh(TiraObjects objectTemplate);
-	//void LoadMesh(TiraMesh objectTemplate);
+	void LoadMesh(std::string path);
 
 	std::string& GetShaderSource() {
 		return shaderSourcePath;
@@ -54,6 +55,10 @@ public:
 	std::vector<float>& GetMeshVerticies() {
 		return meshVertices;
 	}
+
+	Model& GetObjectMeshModel() {
+		return ObjectMeshModel;
+	}
 private:
 	bool ObjectInstantiated;
 
@@ -62,4 +67,5 @@ private:
 	std::string textureFile;
 	std::vector<float> meshVertices;
 	ObjectColour colour;
+	Model ObjectMeshModel;
 };

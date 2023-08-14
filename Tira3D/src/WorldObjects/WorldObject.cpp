@@ -62,3 +62,9 @@ void WorldObject::LoadMesh(TiraObjects objectTemplate)
 	//texture layout
 	vbLayout.Push<float>(2);
 }
+
+void WorldObject::LoadMesh(std::string path)
+{
+	ObjectMeshModel = Model();
+	ObjectMeshModel.loadModel(path);
+}

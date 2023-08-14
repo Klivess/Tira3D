@@ -78,7 +78,7 @@
     <ClCompile Include="src\Renderer\Mesh\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\Mesh\MeshSetup.cpp">
+    <ClCompile Include="src\Renderer\Mesh\Model\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -152,13 +152,14 @@
     <ClInclude Include="src\Renderer\Mesh\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\Mesh\MeshSetup.h">
+    <ClInclude Include="src\Renderer\Mesh\Model\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\Basic.kliveshader" />
     <None Include="resources\shaders\Skybox.kliveshader" />
+    <None Include="resources\models\HeadSculpt.fbx" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\textures\TestTex.png">

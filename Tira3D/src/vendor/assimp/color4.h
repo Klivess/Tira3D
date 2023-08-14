@@ -49,22 +49,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #   pragma GCC system_header
 #endif
 
-#include <assimp/defs.h>
+#include "../assimp/defs.h"
 
 #ifdef __cplusplus
 
-// ----------------------------------------------------------------------------------
-/** Represents a color in Red-Green-Blue space including an
-*   alpha component. Color values range from 0 to 1. */
-// ----------------------------------------------------------------------------------
+ // ----------------------------------------------------------------------------------
+ /** Represents a color in Red-Green-Blue space including an
+ *   alpha component. Color values range from 0 to 1. */
+ // ----------------------------------------------------------------------------------
 template <typename TReal>
 class aiColor4t {
 public:
     aiColor4t() AI_NO_EXCEPT : r(), g(), b(), a() {}
-    aiColor4t (TReal _r, TReal _g, TReal _b, TReal _a)
+    aiColor4t(TReal _r, TReal _g, TReal _b, TReal _a)
         : r(_r), g(_g), b(_b), a(_a) {}
-    explicit aiColor4t (TReal _r) : r(_r), g(_r), b(_r), a(_r) {}
-    aiColor4t (const aiColor4t& o) = default;
+    explicit aiColor4t(TReal _r) : r(_r), g(_r), b(_r), a(_r) {}
+    aiColor4t(const aiColor4t& o) = default;
 
     // combined operators
     const aiColor4t& operator += (const aiColor4t& o);

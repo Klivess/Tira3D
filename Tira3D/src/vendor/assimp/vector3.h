@@ -55,7 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #   include <math.h>
 #endif
 
-#include <assimp/defs.h>
+#include "../assimp/defs.h"
 
 #ifdef __cplusplus
 
@@ -70,20 +70,20 @@ class aiVector3t {
 public:
     /// @brief  The default class constructor.
     aiVector3t() AI_NO_EXCEPT : x(), y(), z() {}
-    
+
     /// @brief  The class constructor with the components.
     /// @param  _x  The x-component for the vector.
     /// @param  _y  The y-component for the vector.
     /// @param  _z  The z-component for the vector.
     aiVector3t(TReal _x, TReal _y, TReal _z) : x(_x), y(_y), z(_z) {}
-    
+
     /// @brief  The class constructor with a default value.
     /// @param  _xyz  The value for x, y and z.
-    explicit aiVector3t (TReal _xyz ) : x(_xyz), y(_xyz), z(_xyz) {}
-    
+    explicit aiVector3t(TReal _xyz) : x(_xyz), y(_xyz), z(_xyz) {}
+
     /// @brief  The copy constructor.
     /// @param  o The instance to copy from.
-    aiVector3t( const aiVector3t& o ) = default;
+    aiVector3t(const aiVector3t& o) = default;
 
     /// @brief  combined operators
     /// @brief  The copy constructor.
@@ -114,16 +114,16 @@ public:
     bool operator < (const aiVector3t& other) const;
 
     /// @brief  
-    bool Equal(const aiVector3t &other, TReal epsilon = ai_epsilon) const;
+    bool Equal(const aiVector3t& other, TReal epsilon = ai_epsilon) const;
 
     template <typename TOther>
-    operator aiVector3t<TOther> () const;
+    operator aiVector3t<TOther>() const;
 
     /** @brief Set the components of a vector
      *  @param pX X component
      *  @param pY Y component
      *  @param pZ Z component  */
-    void Set( TReal pX, TReal pY, TReal pZ);
+    void Set(TReal pX, TReal pY, TReal pZ);
 
     /** @brief Get the squared length of the vector
      *  @return Square length */
