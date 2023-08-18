@@ -24,7 +24,7 @@ void SetupTiraInputs() {
 	tira.Inputs().RecordInput(TiraKey::TIRA_KEY_SPACE, [&]() {
 		tira.AttachedCamera->m_Movement.MoveUp();
 		});
-	tira.Inputs().RecordInput(TiraKey::TIRA_KEY_C, [&]() {
+	tira.Inputs().RecordInput(TiraKey::TIRA_KEY_LEFT_CONTROL, [&]() {
 		tira.AttachedCamera->m_Movement.MoveDown();
 		});
 
