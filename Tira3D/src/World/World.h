@@ -13,11 +13,18 @@ public:
 	float y;
 	float z;
 
-	void MoveRight(float amount) {
-		x + amount;
+	WorldPosition& MoveRight(float amount) {
+		x += amount;
+		return *this;
 	}
-	void MoveForward(float amount) {
-		z + amount;
+	WorldPosition& MoveForward(float amount) {
+		z += amount;
+		return *this;
+
+	}
+	WorldPosition& MoveUp(float amount) {
+		y += amount;
+		return *this;
 	}
 
 };
