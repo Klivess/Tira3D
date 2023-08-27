@@ -50,11 +50,16 @@ void main() {
 		//Create a window/viewport
 		tira.InstantiateWindow(1280, 768, "Test!", NULL);
 
+		//Create our camera that we possess
 		tira.CreateCamera(WorldPosition(0, 0, 3), WorldRotation(0, 0, 0));
+
+		//Set void colour to red
 		tira.Designer().SetVoidColour(200, 0, 0, 0.5);
 
+		//Setup our inputs (Tira3D Testing function only)
 		SetupTiraInputs();
 
+		//Create our cube
 		auto& obj = tira.Designer().CreateNewWorldObject("MyCube");
 		obj.SetWorldPosition(WorldPosition(0, 0, 0));
 		obj.LoadMesh(TiraObjects::Cube);
@@ -62,7 +67,7 @@ void main() {
 		obj.SetColour(ObjectColour(0, 0, 255, 1));
 
 
-		//Animated Cube bobbing.
+		//Animate our cube to oscillate vertically
 		float x = 0;
 		while (true)
 		{
