@@ -20,6 +20,14 @@ public:
 	GLFWwindow* currentWindow;
 	int WindowHeight;
 	int WindowWidth;
+
+	struct {
+		float r;
+		float g;
+		float b;
+		float a;
+	} VoidColour;
+
 	Camera* currentCamera = nullptr;
 	TiraInput* tiraInput = nullptr;
 	std::vector<WorldObject> allWorldObj;

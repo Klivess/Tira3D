@@ -178,7 +178,7 @@ void Tira3DRendering::CreateRender(int width, int height, const char* title, GLF
 
 void Tira3DRendering::Clear()
 {
-	//GLCall(glClearColor(0, 0.7, 0.7, 0.7));
+	GLCall(glClearColor(VoidColour.r, VoidColour.g, VoidColour.b, VoidColour.a));
 	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 }
 

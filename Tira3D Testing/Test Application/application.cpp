@@ -51,6 +51,7 @@ void main() {
 		tira.InstantiateWindow(1280, 768, "Test!", NULL);
 
 		tira.CreateCamera(WorldPosition(0, 0, 3), WorldRotation(0, 0, 0));
+		tira.Designer().SetVoidColour(200, 0, 0, 0.5);
 
 		SetupTiraInputs();
 
