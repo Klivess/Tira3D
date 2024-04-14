@@ -4,4 +4,8 @@
 <h1 align="center" style="margin-top: 0px;">Tira3D</h1>
 <p align="center" >A lightweight 3D rendering engine library implemented using OpenGL.</p>
 
+1000 Cube Load Test + Demonstration of example cube animation
+https://github.com/Klivess/Tira3D/assets/59509523/36f5b81a-2a6b-4f6e-91de-2b9a54ff354b
+
+
 Documentation to be written someday
