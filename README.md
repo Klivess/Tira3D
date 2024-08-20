@@ -7,5 +7,9 @@
 1000 Cube Load Test + Demonstration of example cube animation
 https://github.com/Klivess/Tira3D/assets/59509523/36f5b81a-2a6b-4f6e-91de-2b9a54ff354b
 
+Example of library usage in an application
+
+![image](https://github.com/user-attachments/assets/b51d1f7c-b90b-4f1c-8c7e-ecb34d1e0a5b)
+
 
 Documentation to be written someday
